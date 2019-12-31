@@ -1,6 +1,6 @@
 <center>
 <a href="/">
-<img src="android-chrome-192x192.png" width="96" height="96">
+<img src="static/android-chrome-192x192.png" width="96" height="96">
 
 <br>
 <br>

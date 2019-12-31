@@ -3,13 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Bojan D."><link rel="icon" href="static/favicon.ico"><meta name="description" content="mdPage Simple documentation tool">
-    <title>mdPage | Simple documentation tool</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Main page">
+    <title>Main page</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/javascript.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/shell.min.js"></script>
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" />
     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -53,10 +49,6 @@
     .title a:hover {
         color: #606c76;
         text-decoration: none;
-    }
-
-    .menu {
-        line-height: 1.75;
     }
 
     .button,
@@ -659,130 +651,45 @@
 </style></head>
 
 <body>
-    <div class="container title"><center>
-<a href="/">
-<img src="static/android-chrome-192x192.png" width="96" height="96">
-<br>
-<br>
-<h1>mdPage</h1>
-<h5>Simple documentation tool</h5>
-</a>
-<p><a class="button button-outline" href="https://github.com/bojand/mdpage">GITHUB</a></p>
-</center>
-</div>
+    <div class="container title"><a href="#" onClick="switchToSection(-1)">
+        <h1>
+            Main page
+        </h1>
+    </a></div>
 
 <div class="container">
     <hr>
 </div>
 
 <div class="container">
-    <div class="row"><div class="column column-20 menu">
+    <div class="row"><div class="column column-20">
             <p><a href="#" id="menu-0" onClick="switchToSection(0)">
-                    Home
+                    Page 2
                 </a><br><a href="#" id="menu-1" onClick="switchToSection(1)">
-                    Installation
-                </a><br><a href="#" id="menu-2" onClick="switchToSection(2)">
-                    Usage
-                </a><br><a href="#" id="menu-3" onClick="switchToSection(3)">
-                    Configuration
-                </a><br><a href="#" id="menu-4" onClick="switchToSection(4)">
-                    Examples
+                    Page 1
                 </a></p>
         </div>
 
         <div class="column"><div id="doc-section-main">
-                <h2>mdpage</h2>
-<p><a href="https://github.com/bojand/mdpage">mdPage</a> is a simple, opinionated, command line tool (and a Rust crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder.</p>
-<p>Indeed this very documentation is generated using <code>mdpage</code> tool with some minor configuration and serves as an example of generated output.</p>
-<p>The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has <em>some</em> opinions on structure and patterns used, and has limited configuration and customization options. It lets you focus on creating the content and not waste time on style or format of the output.</p>
+                <h1>Main page</h1>
+<p>This is the main page.</p>
 
             </div>
             <div id="doc-section-0">
-                <h2>mdpage</h2>
-<p><a href="https://github.com/bojand/mdpage">mdPage</a> is a simple, opinionated, command line tool (and a Rust crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder.</p>
-<p>Indeed this very documentation is generated using <code>mdpage</code> tool with some minor configuration and serves as an example of generated output.</p>
-<p>The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has <em>some</em> opinions on structure and patterns used, and has limited configuration and customization options. It lets you focus on creating the content and not waste time on style or format of the output.</p>
+                <h1>Page 2</h1>
+<p>Page 2 content.</p>
 
             </div><div id="doc-section-1">
-                <h2>Installation</h2>
-<h3>Install From Binaries</h3>
-<p>Precompiled binaries are provided for major platforms on a best-effort basis.
-Visit <a href="https://github.com/bojand/mdpage/releases">the releases page</a>
-to download the appropriate version for your platform.</p>
-<h3>Install From Source</h3>
-<p>mdPage can also be installed from source</p>
-<h4>Pre-requisite</h4>
-<p>mdPage is written in <strong><a href="https://www.rust-lang.org/">Rust</a></strong> and therefore needs
-to be compiled with <strong>Cargo</strong>. If you haven't already installed Rust, please go
-ahead and <a href="https://www.rust-lang.org/tools/install">install it</a> now.</p>
-<h4>Install Crates.io version</h4>
-<p>Installing mdPage is relatively easy if you already have Rust and Cargo
-installed. You just have to type this snippet in your terminal:</p>
-<pre><code class="language-bash">cargo install mdpage
-</code></pre>
-<p>This will fetch the source code for the latest release from
-<a href="https://crates.io/">Crates.io</a> and compile it. You will have to add Cargo's
-<code>bin</code> directory to your <code>PATH</code>.</p>
-<p>Run <code>mdpage --help</code> in your terminal to verify if it works. Congratulations, you
-have installed mdPage!</p>
-
-            </div><div id="doc-section-2">
-                <h2>Usage</h2>
-<p><code>mdpage</code> takes a singe argument, the root path directory where all the content is located.</p>
-<pre><code class="language-sh">$ mdpage --help
-mdpage 0.1.0
-Generate simple documentation
-
-USAGE:
-    mdpage &lt;path&gt;
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-ARGS:
-    &lt;path&gt;    Path for the directory contianing data
-</code></pre>
-<p>The result of running the tool is always an <code>index.html</code> file.</p>
-<p>Example workflow:</p>
-<pre><code class="language-sh">$ ls ./examples/basic | sort
-page1.md
-page2.md
-readme.md
-
-$ mdpage ./examples/basic
-
-$ ls ./examples/basic | sort
-index.html
-page1.md
-page2.md
-readme.md
-</code></pre>
-<p>This is exacly how the <a href="/examples/basic">basic</a> was generated!</p>
-
-            </div><div id="doc-section-3">
-                <h2>Configuration</h2>
-<p>Configuration guide</p>
-
-            </div><div id="doc-section-4">
-                <h2>Examples</h2>
-<p>Some examples.</p>
+                <h1>Page 1</h1>
+<p>Page 1 content.</p>
 
             </div></div></div>
 </div>
 
 <div class="container">
     <hr>
-</div><div class="container">
-    <center>
-<p>❤️</p>
-<a href="https://www.buymeacoffee.com/bojand">
-    Say Thanks!
-</a>
-</center>
-
 </div><script>
-    var items = 5;
+    var items = 2;
 
     function switchToSection(i) {
         removeActive();
@@ -826,8 +733,6 @@ readme.md
     (function () {
         switchToSection(-1)
     })()
-</script><script>
-    (function () { hljs.initHighlightingOnLoad(); })()
 </script></body>
 
 </html>

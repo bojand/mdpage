@@ -1,3 +1,3 @@
-# Configuration
+## Configuration
 
 Configuration guide

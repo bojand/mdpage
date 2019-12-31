@@ -3,7 +3,7 @@
     "title": "mdPage",
     "subtitle": "Simple documentation tool",
     "author": "Bojan D.",
-    "icon": "favicon.ico",
+    "icon": "static/favicon.ico",
     "links": [
         {
             "link_type": "script",
@@ -32,6 +32,9 @@
         },
         {
             "file": "install.md"
+        },
+        {
+            "file": "usage.md"
         },
         {
             "file": "config.md"
