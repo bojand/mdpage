@@ -1,0 +1,30 @@
+{
+    "full_page": false,
+    "title": "Dir 2 main",
+    "main": {
+        "label": "Dir 2 main",
+        "file": "tests/fixtures/data/dir2/index.md",
+        "markdown": "## Dir 2 main\n\nMore content.",
+        "html": "<h2>Dir 2 main</h2>\n<p>More content.</p>\n"
+    },
+    "footer": {
+        "label": "footer",
+        "file": "tests/fixtures/data/dir2/footer.md",
+        "markdown": "Footer content.",
+        "html": "<p>Footer content.</p>\n"
+    },
+    "header": {
+        "label": "header",
+        "file": "tests/fixtures/data/dir2/header.md",
+        "markdown": "Header content.",
+        "html": "<p>Header content.</p>\n"
+    },
+    "contents": [
+        {
+            "label": "Developer Guide",
+            "file": "tests/fixtures/data/dir2/guide.md",
+            "markdown": "# Developer Guide\n\nGuide content.",
+            "html": "<h1>Developer Guide</h1>\n<p>Guide content.</p>\n"
+        }
+    ]
+}

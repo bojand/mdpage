@@ -1,0 +1,25 @@
+{
+    "title": "dir1",
+    "main": {
+        "label": "Dir 2 main",
+        "file": "tests/fixtures/data/dir2/index.md"
+    },
+    "header": {
+        "label": "header",
+        "file": "tests/fixtures/data/dir2/header.md"
+    },
+    "footer": {
+        "label": "footer",
+        "file": "tests/fixtures/data/dir2/footer.md"
+    },
+    "contents": [
+        {
+            "label": "Page 2",
+            "file": "tests/fixtures/data/dir1/page2.md"
+        },
+        {
+            "label": "Page 1",
+            "file": "tests/fixtures/data/dir1/page1.md"
+        }
+    ]
+}

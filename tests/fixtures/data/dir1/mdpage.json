@@ -1,0 +1,23 @@
+{
+    "title": "mdPage test",
+    "dubtitle": "subtitle test",
+    "full_page": true,
+    "author": "Bojan D.",
+    "icon": "favicon.ico",
+    "main": {
+        "file": "../dir2/index.md"
+    },
+    "header": {
+        "file": "../dir2/header.md"
+    },
+    "footer": {
+        "file": "../dir2/footer.md"
+    },
+    "links": [
+        {
+            "link_type": "script",
+            "src": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/javascript.min.js"
+        }
+    ],
+    "script": "(function () { hljs.initHighlightingOnLoad(); })()"
+}

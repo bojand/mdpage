@@ -1,0 +1,43 @@
+{
+    "full_page": false,
+    "title": "mdPage",
+    "subtitle": "Simple documentation tool",
+    "author": "Bojan D.",
+    "icon": "favicon.ico",
+    "links": [
+        {
+            "link_type": "script",
+            "src": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js",
+            "integrity": "sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=",
+            "crossorigin": "anonymous"
+        },
+        {
+            "link_type": "script",
+            "src": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/javascript.min.js"
+        },
+        {
+            "link_type": "script",
+            "src": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/shell.min.js"
+        },
+        {
+            "link_type": "style",
+            "src": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css"
+        }
+    ],
+    "script": "(function () { hljs.initHighlightingOnLoad(); })()",
+    "contents": [
+        {
+            "label": "Home",
+            "file": "index.md"
+        },
+        {
+            "file": "install.md"
+        },
+        {
+            "file": "config.md"
+        },
+        {
+            "file": "examples.md"
+        }
+    ]
+}

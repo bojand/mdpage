@@ -1,0 +1,22 @@
+{
+    "full_page": false,
+    "title": "Dir 2 main",
+    "main": {
+        "label": "Dir 2 main",
+        "file": "tests/fixtures/data/dir2/index.md"
+    },
+    "header": {
+        "label": "header",
+        "file": "tests/fixtures/data/dir2/header.md"
+    },
+    "footer": {
+        "label": "footer",
+        "file": "tests/fixtures/data/dir2/footer.md"
+    },
+    "contents": [
+        {
+            "label": "Developer Guide",
+            "file": "tests/fixtures/data/dir2/guide.md"
+        }
+    ]
+}

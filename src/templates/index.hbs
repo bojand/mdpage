@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{~ #if author ~}}
+    <meta name="author" content="{{ author }}">
+    {{~ /if ~}}
+
+    {{~ #if icon ~}}
+    <link rel="icon" href="{{ icon }}">
+    {{~ /if ~}}
+
+    {{~ #if subtitle ~}}
+    <meta name="description" content="{{ title }} {{ subtitle }}">
+    <title>{{ title }} | {{ capitalize subtitle }}</title>
+    {{~ else ~}}
+    <meta name="description" content="{{ title }}">
+    <title>{{ title }}</title>
+    {{~ /if ~}}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+
+    {{ #each links as |link| ~}}
+    {{~ #if (and link.src link.integrity link.crossorigin) ~}}
+    {{~ #if (or (eq link.link_type "style") (eq link.link_type "stylesheet")) ~}}
+    <link rel="stylesheet" href="{{ link.src }}" integrity="{{ link.integrity }}"
+        crossorigin="{{ link.crossorigin }}" />
+    {{~ else ~}} {{~ #if (eq link.link_type "script") ~}}
+    <script src="{{ link.src }}" integrity="{{ link.integrity }}" crossorigin="{{ link.crossorigin }}"></script>
+    {{~ /if ~}}
+    {{~ /if ~}}
+    {{ else }} {{ #if (and link.src link.integrity) }}
+    {{~ #if (or (eq link.link_type "style") (eq link.link_type "stylesheet")) ~}}
+    <link rel="stylesheet" href="{{ link.src }}" integrity="{{ link.integrity }}" />
+    {{~ else ~}} {{~ #if (eq link.link_type "script") ~}}
+    <script src="{{ link.src }}" integrity="{{ link.integrity }}"></script>
+    {{~ /if ~}}
+    {{~ /if ~}}
+    {{ else }} {{ #if (and link.src link.crossorigin) }}
+    {{~ #if (or (eq link.link_type "style") (eq link.link_type "stylesheet")) ~}}
+    <link rel="stylesheet" href="{{ link.src }}" crossorigin="{{ link.crossorigin }}" />
+    {{~ else ~}} {{~ #if (eq link.link_type "script") ~}}
+    <script src="{{ link.src }}" crossorigin="{{ link.crossorigin }}"></script>
+    {{~ /if ~}}
+    {{~ /if ~}}
+    {{ else }} {{ #if link.src }}
+    {{~ #if (or (eq link.link_type "style") (eq link.link_type "stylesheet")) ~}}
+    <link rel="stylesheet" href="{{ link.src }}" />
+    {{~ else ~}} {{~ #if (eq link.link_type "script") ~}}
+    <script src="{{ link.src }}"></script>
+    {{~ /if ~}}
+    {{~ /if ~}}
+    {{/if}}{{/if}}{{/if}}{{/if}}
+    {{ /each }}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    {{> css}}
+
+    {{~ #if style ~}}
+    <style>
+        {{{ style }}}
+    </style>
+    {{~ /if ~}}
+</head>
+
+<body>
+    {{~ #if full_page ~}}
+    {{> full}}
+    {{ else }}
+    {{> multi}}
+    {{~ /if ~}}
+</body>
+
+</html>

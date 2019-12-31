@@ -1,0 +1,124 @@
+<div class="container title">
+    {{~ #if header ~}}
+    {{~ #if header.html ~}}
+    {{{ header.html }}}
+    {{~ /if ~}}
+    {{~ else ~}}
+    <a href="#" onClick="switchToSection(-1)">
+        <h1>
+            {{ title }}
+        </h1>
+    </a>
+    {{~ #if subtitle ~}}
+    <h5>
+        {{ capitalize subtitle }}
+    </h5>
+    {{~ /if ~}}
+    {{~ /if ~}}
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+<div class="container">
+    <div class="row">
+        {{~ #if contents ~}}
+
+        {{! Menu }}
+        <div class="column column-20">
+            <p>
+                {{~ #each contents as |c| ~}}
+
+                {{! Heading }}
+                {{~ #if c.is_heading ~}}
+                {{~ #if (ne @index 0) ~}}
+                <br>
+                {{~ /if ~}}
+                <span>{{ upper c.label }}</span>
+                {{~ else ~}}
+
+                {{! Heading }}
+                {{~ #if c.is_break ~}}
+                <br>
+                {{~ else ~}}
+
+                {{! Menu item }}
+                {{~ #if (ne @index 0) ~}}
+                <br>
+                {{~ /if ~}}
+
+                {{~ #if c.url ~}}
+                <a href="{{ c.url }}" id="menu-external-link-{{ @index }}" )>
+                    {{capitalize c.label}}
+                </a>
+                {{~ else ~}}
+                {{~ #if c.label ~}}
+                <a href="#{{c.label}}" id="menu-{{ c.label }}">
+                {{~ else ~}}
+                <a href="#doc-section-{{ @index }}" id="menu-{{ @index }}">
+                {{ /if }}
+                    {{capitalize c.label}}
+                </a>
+                {{~ /if ~}}
+                {{~ /if ~}}
+                {{~ /if ~}}
+
+                {{~ /each ~}}
+            </p>
+        </div>
+
+        {{! Content }}
+
+        <div class="column">
+
+            {{~ #if (and main main.html) ~}}
+            <div id="doc-section-main">
+                {{{ main.html }}}
+            </div>
+            <br>
+            {{/if}}
+
+            {{~ #each contents as |c| ~}}
+
+            {{~ #if c.html ~}}
+            {{~ #if c.label ~}}
+            <div id="{{ c.label }}">
+            {{ else }}
+            <div id="doc-section-{{ @index }}">
+            {{/if}}
+                {{{ c.html }}}
+            </div>
+            <br>
+            {{~ /if ~}}
+
+            {{~ /each ~}}
+        </div>
+
+        {{~ /if ~}}
+
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+{{~ #if footer ~}}
+{{~ #if footer.html ~}}
+<div class="container">
+    {{{ footer.html }}}
+</div>
+{{~ /if ~}}
+{{~ /if ~}}
+<script>
+    (function () {
+        switchToSection(-1)
+    })()
+</script>
+
+{{~ #if script ~}}
+<script>
+    {{{ script }}}
+</script>
+{{~ /if ~}}

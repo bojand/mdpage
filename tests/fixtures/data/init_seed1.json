@@ -1,0 +1,11 @@
+{
+    "main": {
+        "file": "tests/fixtures/data/dir2/index.md"
+    },
+    "header": {
+        "file": "tests/fixtures/data/dir2/header.md"
+    },
+    "footer": {
+        "file": "tests/fixtures/data/dir2/footer.md"
+    }
+}

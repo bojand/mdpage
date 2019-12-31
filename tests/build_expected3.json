@@ -1,0 +1,46 @@
+{
+    "title": "mdPage test",
+    "dubtitle": "subtitle test",
+    "full_page": true,
+    "author": "Bojan D.",
+    "icon": "favicon.ico",
+    "main": {
+        "label": "Dir 2 main",
+        "file": "../dir2/index.md",
+        "markdown": "## Dir 2 main\n\nMore content.",
+        "html": "<h2>Dir 2 main</h2>\n<p>More content.</p>\n"
+    },
+    "footer": {
+        "label": "footer",
+        "file": "../dir2/footer.md",
+        "markdown": "Footer content.",
+        "html": "<p>Footer content.</p>\n"
+    },
+    "header": {
+        "label": "header",
+        "file": "../dir2/header.md",
+        "markdown": "Header content.",
+        "html": "<p>Header content.</p>\n"
+    },
+    "contents": [
+        {
+            "label": "Page 2",
+            "file": "tests/fixtures/data/dir1/page2.md",
+            "markdown": "# Page 2\n\nContent for page 2.",
+            "html": "<h1>Page 2</h1>\n<p>Content for page 2.</p>\n"
+        },
+        {
+            "label": "Page 1",
+            "file": "tests/fixtures/data/dir1/page1.md",
+            "markdown": "# Page 1\n\nContent for page 1.",
+            "html": "<h1>Page 1</h1>\n<p>Content for page 1.</p>\n"
+        }
+    ],
+    "links": [
+        {
+            "link_type": "script",
+            "src": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/javascript.min.js"
+        }
+    ],
+    "script": "(function () { hljs.initHighlightingOnLoad(); })()"
+}

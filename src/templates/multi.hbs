@@ -1,0 +1,156 @@
+<div class="container title">
+    {{~ #if header ~}}
+    {{~ #if header.html ~}}
+    {{{ header.html }}}
+    {{~ /if ~}}
+    {{~ else ~}}
+    <a href="#" onClick="switchToSection(-1)">
+        <h1>
+            {{ title }}
+        </h1>
+    </a>
+    {{~ #if subtitle ~}}
+    <h5>
+        {{ capitalize subtitle }}
+    </h5>
+    {{~ /if ~}}
+    {{~ /if ~}}
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+<div class="container">
+    <div class="row">
+        {{~ #if contents ~}}
+
+        {{! Menu }}
+        <div class="column column-20">
+            <p>
+                {{~ #each contents as |c| ~}}
+
+                {{! Heading }}
+                {{~ #if c.is_heading ~}}
+                {{~ #if (ne @index 0) ~}}
+                <br>
+                {{~ /if ~}}
+                <span>{{ upper c.label }}</span>
+                {{~ else ~}}
+
+                {{! Heading }}
+                {{~ #if c.is_break ~}}
+                <br>
+                {{~ else ~}}
+
+                {{! Menu item }}
+                {{~ #if (ne @index 0) ~}}
+                <br>
+                {{~ /if ~}}
+
+                {{~ #if c.url ~}}
+                <a href="{{ c.url }}" id="menu-external-link-{{ @index }}" )>
+                    {{capitalize c.label}}
+                </a>
+                {{~ else ~}}
+                <a href="#" id="menu-{{ @index }}" onClick="switchToSection({{ @index }})">
+                    {{capitalize c.label}}
+                </a>
+                {{~ /if ~}}
+                {{~ /if ~}}
+                {{~ /if ~}}
+
+                {{~ /each ~}}
+            </p>
+        </div>
+
+        {{! Content }}
+
+        <div class="column">
+
+            {{~ #if (and main main.html) ~}}
+            <div id="doc-section-main">
+                {{{ main.html }}}
+            </div>
+            {{/if}}
+
+            {{~ #each contents as |c| ~}}
+
+            {{~ #if c.html ~}}
+            <div id="doc-section-{{ @index }}">
+                {{{ c.html }}}
+            </div>
+            {{~ /if ~}}
+
+            {{~ /each ~}}
+        </div>
+
+        {{~ /if ~}}
+
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+{{~ #if footer ~}}
+{{~ #if footer.html ~}}
+<div class="container">
+    {{{ footer.html }}}
+</div>
+{{~ /if ~}}
+{{~ /if ~}}
+
+<script>
+    var items = {{ array_length contents }};
+
+    function switchToSection(i) {
+        removeActive();
+        hideAll();
+
+        if (i >= 0) {
+            setActive(i)
+            setVisible(i)
+        } else {
+            $("#doc-section-main").removeClass("is-hidden")
+        }
+    }
+
+    function setActive(i) {
+        var id = "#menu-" + i
+        $(id).addClass("is-active")
+    }
+
+    function setVisible(i) {
+        var id = "#doc-section-" + i
+        $(id).removeClass("is-hidden")
+    }
+
+    function removeActive() {
+        for (var i = 0; i < items; i++) {
+            var id = "#menu-" + i
+            $(id).removeClass("is-active")
+        }
+    }
+
+    function hideAll() {
+        for (var i = 0; i < items; i++) {
+            var id = "#doc-section-" + i
+            $(id).addClass("is-hidden")
+        }
+
+        $("#doc-section-main").addClass("is-hidden")
+    }
+</script>
+<script>
+    (function () {
+        switchToSection(-1)
+    })()
+</script>
+
+{{~ #if script ~}}
+<script>
+    {{{ script }}}
+</script>
+{{~ /if ~}}
