@@ -1,0 +1,2 @@
+# mdpage
+Simple documentation tool
