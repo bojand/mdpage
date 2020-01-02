@@ -11,6 +11,14 @@
             "file": "tests/fixtures/data/doc.md"
         },
         {
+            "label": "File 1",
+            "file": "tests/fixtures/data/file1.md"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
+        },
+        {
             "is_break": false,
             "label": "dir2",
             "is_heading": true

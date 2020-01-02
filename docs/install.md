@@ -1,10 +1,14 @@
 ## Installation
 
+<br>
+
 ### Install From Binaries
 
 Precompiled binaries are provided for major platforms on a best-effort basis.
 Visit [the releases page](https://github.com/bojand/mdpage/releases)
 to download the appropriate version for your platform.
+
+<br>
 
 ### Install From Source
 
@@ -12,8 +16,8 @@ mdPage can also be installed from source
 
 #### Pre-requisite
 
-mdPage is written in **[Rust](https://www.rust-lang.org/)** and therefore needs
-to be compiled with **Cargo**. If you haven't already installed Rust, please go
+mdPage is written in [Rust](https://www.rust-lang.org/) and therefore needs
+to be compiled with Cargo. If you haven't already installed Rust, please go
 ahead and [install it](https://www.rust-lang.org/tools/install) now.
 
 #### Install Crates.io version

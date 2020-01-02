@@ -41,6 +41,9 @@
         },
         {
             "file": "examples.md"
+        },
+        {
+            "file": "todo.md"
         }
     ]
 }

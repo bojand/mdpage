@@ -10,6 +10,18 @@ use structopt::StructOpt;
 #[derive(Debug, StructOpt)]
 /// Generate simple documentation
 struct Args {
+    /// Title of the document
+    #[structopt(long)]
+    title: Option<String>,
+
+    /// Subtitle of the document
+    #[structopt(long)]
+    subtitle: Option<String>,
+
+    /// Generate full page documentation
+    #[structopt(long, takes_value=false)]
+    full_page: bool,
+
     /// Path for the directory contianing data
     path: PathBuf,
 }
@@ -20,7 +32,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opt = Args::from_args();
     
     let root = opt.path.as_path();
-    let data = mdpage::build(root)?;
+
+    let initial = mdpage::Data {
+        title: opt.title, 
+        subtitle: opt.subtitle,
+        full_page: Some(opt.full_page),
+        .. mdpage::Data::default()
+    };
+    
+    let data = mdpage::build(root, Some(initial))?;
     debug!("{}", serde_json::to_string(&data).expect("failed to json"));
 
     let mut path = root.to_path_buf();

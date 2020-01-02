@@ -92,12 +92,13 @@ impl Data {
             self.footer.as_mut().unwrap().init_from_file(root);
         }
 
-        let paths = fs::read_dir(root)?;
+        let mut paths = fs::read_dir(root)?;
 
         let mut main = None;
         let mut header = None;
         let mut footer = None;
-        let res = paths
+
+        let mut res = paths
             .filter_map(|p| {
                 if let Ok(entry) = p {
                     if let Ok(file_type) = entry.file_type() {
@@ -119,7 +120,21 @@ impl Data {
                                     _ => return Some(vec![c]),
                                 }
                             });
-                        } else {
+                        }
+                    }
+                }
+                return None;
+            })
+            .flatten()
+            .collect::<Vec<Content>>();
+
+        paths = fs::read_dir(root)?;
+
+        let mut sections = paths
+            .filter_map(|p| {
+                if let Ok(entry) = p {
+                    if let Ok(file_type) = entry.file_type() {
+                        if file_type.is_dir() {
                             let entries =
                                 fs::read_dir(entry.path().as_path()).expect("could not read dir");
 
@@ -166,6 +181,11 @@ impl Data {
             })
             .flatten()
             .collect::<Vec<Content>>();
+
+        if res.len() > 0 {
+            res.push(Content::new_break());
+        }
+        res.append(&mut sections);
 
         if self.main.is_none() {
             self.main = main;
@@ -266,7 +286,7 @@ fn init_entry_contents(
     return None;
 }
 
-pub fn build(root: &Path) -> Result<Data, Box<dyn Error>> {
+pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn Error>> {
     let mut r = root;
     let current_dir = env::current_dir()?;
     let abs;
@@ -276,10 +296,9 @@ pub fn build(root: &Path) -> Result<Data, Box<dyn Error>> {
     }
 
     let path = config_file(r);
-    let mut data: Data;
-    if path.is_none() {
-        data = Data::default();
-    } else {
+    let mut data = initial_value.unwrap_or_default();
+
+    if path.is_some() {
         let file = File::open(path.unwrap().as_path())?;
         let reader = BufReader::new(file);
         data = serde_json::from_reader(reader)?;

@@ -1,6 +1,6 @@
 ## mdpage
 
-[mdPage](https://github.com/bojand/mdpage) is a simple, opinionated, command line tool (and a Rust crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder. 
+[mdPage](https://github.com/bojand/mdpage) is a simple, opinionated, command line tool (and a [Rust](https://www.rust-lang.org/) crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder. 
 
 Indeed this very documentation is generated using `mdpage` tool with some minor configuration and serves as an example of generated output.
 

@@ -17,6 +17,10 @@
         {
             "label": "Developer Guide",
             "file": "tests/fixtures/data/dir2/guide.md"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
         }
     ]
 }

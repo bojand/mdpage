@@ -34,6 +34,10 @@
             "file": "tests/fixtures/data/dir1/page1.md",
             "markdown": "# Page 1\n\nContent for page 1.",
             "html": "<h1>Page 1</h1>\n<p>Content for page 1.</p>\n"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
         }
     ],
     "links": [
