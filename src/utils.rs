@@ -103,14 +103,14 @@ pub fn is_index_file(entry: &std::fs::DirEntry) -> bool {
     return false;
 }
 
-pub fn is_markdown(path: &PathBuf) -> bool {
+pub fn is_ext(path: &PathBuf, ext: &str) -> bool {
     return path
         .extension()
         .unwrap_or_default()
         .to_str()
         .unwrap_or_default()
         .to_lowercase()
-        == "md";
+        == ext;
 }
 
 #[cfg(test)]

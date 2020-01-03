@@ -6,6 +6,7 @@ use std::error::Error;
 use std::fs;
 use std::fs::File;
 
+use std::io::prelude::*;
 use std::io::BufReader;
 use std::path::Path;
 use std::path::PathBuf;
@@ -13,7 +14,7 @@ use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 
 use crate::content::Content;
-use crate::utils::{build_title_for_dir, is_index_file, is_markdown};
+use crate::utils::{build_title_for_dir, is_ext, is_index_file};
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Data {
@@ -232,10 +233,18 @@ impl Data {
 }
 
 fn config_file(root: &Path) -> Option<PathBuf> {
-    let json_config = root.join("mdpage.json");
+    let mut r = Path::new(root);
+    let json_config = r.join("mdpage.json");
     match json_config.as_path().exists() {
         true => Some(json_config),
-        false => None,
+        false => {
+            r = Path::new(root);
+            let toml_config = r.join("mdpage.toml");
+            match toml_config.as_path().exists() {
+                true => Some(toml_config),
+                false => None,
+            }
+        }
     }
 }
 
@@ -248,7 +257,7 @@ fn init_entry_contents(
         if file_type.is_file() {
             let entry_path = entry.path();
 
-            if is_markdown(&entry_path) {
+            if is_ext(&entry_path, "md") {
                 let mut c = Content::default();
                 c.file = Some(String::from(entry_path.as_path().to_str().unwrap()));
                 c.init_from_file(root);
@@ -299,9 +308,17 @@ pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn E
     let mut data = initial_value.unwrap_or_default();
 
     if path.is_some() {
-        let file = File::open(path.unwrap().as_path())?;
-        let reader = BufReader::new(file);
-        data = serde_json::from_reader(reader)?;
+        let file_path = path.unwrap();
+        info!("reading config: {}", file_path.display());
+        let mut file = File::open(file_path.as_path())?;
+        if is_ext(&file_path, "json") {
+            let reader = BufReader::new(file);
+            data = serde_json::from_reader(reader)?;
+        } else if is_ext(&file_path, "toml") {
+            let mut content = String::new();
+            file.read_to_string(&mut content)?;
+            data = toml::from_str(&content)?;
+        }
     }
 
     return match data.build(r) {

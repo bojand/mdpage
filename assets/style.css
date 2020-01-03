@@ -499,8 +499,6 @@ ol ul,
 ul dl,
 ul ol,
 ul ul {
-    // font-size: 90%;
-    // margin: 1.5rem 0 1.5rem 3.0rem;
     margin: 0 0 0 3.0rem;
 }
 
@@ -531,7 +529,6 @@ textarea {
     margin-bottom: 1.5rem;
 }
 
-// blockquote,
 dl,
 figure,
 form,

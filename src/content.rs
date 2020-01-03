@@ -9,7 +9,7 @@ use comrak::{markdown_to_html, ComrakOptions};
 use serde::{Deserialize, Serialize};
 use derivative::Derivative;
 
-use crate::utils::{get_title_from_file, is_markdown};
+use crate::utils::{get_title_from_file, is_ext};
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 #[derive(Derivative)]
@@ -76,7 +76,7 @@ impl Content {
                 _ => path.to_path_buf(),
             };
 
-            if is_markdown(&fullpath) {
+            if is_ext(&fullpath, "md") {
                 self.label = get_title_from_file(&fullpath, true)
                     .expect(format!("could not get title from path: {}", path.display()).as_str());
             }

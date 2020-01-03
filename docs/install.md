@@ -2,7 +2,7 @@
 
 <br>
 
-### Install From Binaries
+### Install from binaries
 
 Precompiled binaries are provided for major platforms on a best-effort basis.
 Visit [the releases page](https://github.com/bojand/mdpage/releases)
@@ -10,7 +10,7 @@ to download the appropriate version for your platform.
 
 <br>
 
-### Install From Source
+### Install from source
 
 mdPage can also be installed from source
 
