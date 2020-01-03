@@ -1,0 +1,59 @@
+full_page = false
+title = "Config example"
+subtitle = "Demonstrate cusomization"
+author = "Author Name"
+icon = "static/favicon.ico"
+script = "(function () { hljs.initHighlightingOnLoad(); })()"
+
+[[links]]
+link_type = "script"
+src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"
+integrity = "sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0="
+crossorigin = "anonymous"
+
+[[links]]
+link_type = "script"
+src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/toml.min.js"
+
+[[links]]
+link_type = "style"
+src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atom-one-dark.min.css"
+
+[[contents]]
+label = "Heading"
+is_heading = true
+
+[[contents]]
+label = "Custom Label"
+file = "page1.md"
+
+[[contents]]
+file = "page1.md"
+
+[[contents]]
+label = "Raw Markdown"
+markdown = """
+## Raw content\n\n \
+We can specify markdown content like this.\
+"""
+
+[[contents]]
+label = "Raw HTML"
+html = """
+<h1>Some HTML Content</h1> \
+<h4>Some content.</h4> \
+<img src=\"http://placekitten.com/200/200\"> \
+<br><br> \
+<p>This is paragraph of raw HTML content.</p> \
+"""
+
+[[contents]]
+is_break = true
+
+[[contents]]
+label = "Links"
+is_heading = true
+
+[[contents]]
+label = "External Link"
+url = "https://github.com"

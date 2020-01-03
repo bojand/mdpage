@@ -21,6 +21,7 @@
 - [ ] Cargo fmt and clippy
 - [ ] Clean up `cargo.toml`
 - [ ] Add CSS vars for colors
+- [ ] Add builds and GitHub workflows
 - [x] Document
 - [x] Examples
 - [x] Add CLI options for some stuff like title, subtitle, full_page

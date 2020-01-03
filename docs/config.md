@@ -155,7 +155,7 @@ file = "install.md"
 label = "Raw Markdown"  
 markdown = """
 ## Raw content\n\n \
-We can specify markdown content like this.
+We can specify markdown content like this.\
 """
 
 # We can have raw HTML
@@ -166,7 +166,7 @@ html = """
 <h4>Some content.</h4> \
 <img src=\"http://placekitten.com/200/200\"> \
 <br><br> \
-<p>This is paragraph of raw HTML content.</p>
+<p>This is paragraph of raw HTML content.</p>\
 """
 
 # This will add a line break in the menu so we can start another section
