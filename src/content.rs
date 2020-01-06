@@ -6,13 +6,12 @@ use std::path::Path;
 use std::path::PathBuf;
 
 use comrak::{markdown_to_html, ComrakOptions};
-use serde::{Deserialize, Serialize};
 use derivative::Derivative;
+use serde::{Deserialize, Serialize};
 
 use crate::utils::{get_title_from_file, is_ext};
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
-#[derive(Derivative)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, Derivative)]
 #[derivative(PartialEq)]
 pub struct Content {
     pub is_heading: Option<bool>,
@@ -22,7 +21,7 @@ pub struct Content {
     pub markdown: Option<String>,
     pub html: Option<String>,
 
-    #[derivative(PartialEq="ignore")]
+    #[derivative(PartialEq = "ignore")]
     pub file: Option<String>,
 }
 
@@ -32,7 +31,7 @@ impl Content {
             is_heading: Some(false),
             is_break: Some(false),
             label: None,
-            file: file,
+            file,
             markdown: None,
             html: None,
             url: None,
@@ -67,18 +66,19 @@ impl Content {
         if self.file.is_some() {
             let pathbuf = PathBuf::from(self.file.as_ref().unwrap());
             let path = pathbuf.as_path();
-            let fullpath = match root.has_root() && path.is_relative() {
-                true => root
-                    .join(path)
+            let fullpath = if root.has_root() && path.is_relative() {
+                root.join(path)
                     .as_path()
                     .canonicalize()
-                    .expect("cannot resolve path"),
-                _ => path.to_path_buf(),
+                    .expect("cannot resolve path")
+            } else {
+                path.to_path_buf()
             };
 
             if is_ext(&fullpath, "md") {
-                self.label = get_title_from_file(&fullpath, true)
-                    .expect(format!("could not get title from path: {}", path.display()).as_str());
+                self.label = get_title_from_file(&fullpath, true).unwrap_or_else(|_| {
+                    panic!("could not get title from path: {}", path.display())
+                });
             }
         }
     }
@@ -93,13 +93,13 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
         let path_str = OsStr::new(c.file.as_ref().unwrap().as_str());
         let mut path = Path::new(path_str);
 
-        let pathbuf = match root.has_root() && path.is_relative() {
-            true => root
-                .join(path)
+        let pathbuf = if root.has_root() && path.is_relative() {
+            root.join(path)
                 .as_path()
                 .canonicalize()
-                .expect("cannot resolve path"),
-            _ => path.to_path_buf(),
+                .expect("cannot resolve path")
+        } else {
+            path.to_path_buf()
         };
 
         path = pathbuf.as_path();
@@ -115,7 +115,7 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
         let mut file = File::open(path)?;
         file.read_to_string(&mut file_contents)?;
         let markdown = file_contents.trim();
-        if markdown.len() > 0 {
+        if !markdown.is_empty() {
             c.markdown = Some(markdown.to_owned());
         }
     }
@@ -137,7 +137,7 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
         c.html = html;
     }
 
-    return Ok(());
+    Ok(())
 }
 
 #[cfg(test)]

@@ -20,7 +20,7 @@ OPTIONS:
         --title <title>          Title
 
 ARGS:
-    <path>    Path for the directory contianing data
+    <path>    Path for the directory containing data
 ```
 
 The result of running the tool is always an `index.html` file.
@@ -44,7 +44,7 @@ readme.md
 
 This is exacly how the [basic](/examples/basic) was generated!
 
-The title of the generated documents is automatically infered from the `readme.md` (or `index.md`) document's heading, or, if not possible, from the directory name. Similarly the page links in the menu are inferred from the file headings, or, if not possible, from the file name.
+The title of the generated documents is automatically inferred from the `readme.md` (or `index.md`) document's heading, or, if not possible, from the directory name. Similarly the page links in the menu are inferred from the file headings, or, if not possible, from the file name.
 
 mdPage expects **all** contents to be in the immediate directory as root of the content and immediate subdirectories. It makes certain assumptions about structure and meaning. The content in subdirectories is separated out and used as different "sections" in the menu. Similar to the rules stated above, the section title is inferred from heading `readme.md` (or `index.md`) or, if not possible, from the directory name.
 

@@ -11,8 +11,8 @@ There are also "Content" objects which are used to specify the main page, header
 
 Links have the following properties:
 
-- `link_type` - has to be either `"script"` for a script link; or `"style"` or `"stylesheet"` to specfy a stylesheet link.
-- `src` - the src URL to be applied to the `<link>` element
+- `link_type` - has to be either `"script"` for a script link; or `"style"` or `"stylesheet"` to specify a stylesheet link.
+- `src` - the URL to be applied to the `<link>` element
 - `integrity` - the `integrity` tag to be applied for SRI
 - `crossorigin` - the `crossorigin` tag to be applied for SRI
 
@@ -42,7 +42,7 @@ The `footer` config property is the custom footer content to be displayed at the
 
 #### Style
 
-Cusom styles can be added within the `style` property. We use a forked / customized version of [Milligram](https://milligram.io/) so all the same classes are available in markdown and HTML content.
+Custom styles can be added within the `style` property. We use a forked / customized version of [Milligram](https://milligram.io/) so all the same classes are available in markdown and HTML content.
 
 #### Script
 

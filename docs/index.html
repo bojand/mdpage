@@ -49,16 +49,16 @@
 
         <div class="column"><div id="doc-section-main">
                 <h2>mdpage</h2>
-<p><a href="https://github.com/bojand/mdpage">mdPage</a> is a simple, opinionated, command line tool (and a <a href="https://www.rust-lang.org/">Rust</a> crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder.</p>
+<p><a href="https://github.com/bojand/mdpage">mdPage</a> is a minimal, opinionated, command line tool (and <a href="https://www.rust-lang.org/">Rust</a> crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder.</p>
 <p>Indeed this very documentation is generated using <code>mdpage</code> tool with some minor configuration and serves as an example of generated output.</p>
-<p>The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has <em>some</em> opinions on structure and patterns used, and has limited configuration and customization options. It lets you focus on creating the content and not waste time on style or format of the output.</p>
+<p>The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has <em>some</em> opinions on structure and patterns used, and has limited configuration and customization options. It purposefully lacks in features, to let you focus on creating the content and not waste time on style or format of the output.</p>
 
             </div>
             <div id="doc-section-0">
                 <h2>mdpage</h2>
-<p><a href="https://github.com/bojand/mdpage">mdPage</a> is a simple, opinionated, command line tool (and a <a href="https://www.rust-lang.org/">Rust</a> crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder.</p>
+<p><a href="https://github.com/bojand/mdpage">mdPage</a> is a minimal, opinionated, command line tool (and <a href="https://www.rust-lang.org/">Rust</a> crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder.</p>
 <p>Indeed this very documentation is generated using <code>mdpage</code> tool with some minor configuration and serves as an example of generated output.</p>
-<p>The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has <em>some</em> opinions on structure and patterns used, and has limited configuration and customization options. It lets you focus on creating the content and not waste time on style or format of the output.</p>
+<p>The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has <em>some</em> opinions on structure and patterns used, and has limited configuration and customization options. It purposefully lacks in features, to let you focus on creating the content and not waste time on style or format of the output.</p>
 
             </div><div id="doc-section-1">
                 <h2>Installation</h2>
@@ -105,7 +105,7 @@ OPTIONS:
         --title &lt;title&gt;          Title
 
 ARGS:
-    &lt;path&gt;    Path for the directory contianing data
+    &lt;path&gt;    Path for the directory containing data
 </code></pre>
 <p>The result of running the tool is always an <code>index.html</code> file.</p>
 <p>Example workflow:</p>
@@ -123,7 +123,7 @@ page2.md
 readme.md
 </code></pre>
 <p>This is exacly how the <a href="/examples/basic">basic</a> was generated!</p>
-<p>The title of the generated documents is automatically infered from the <code>readme.md</code> (or <code>index.md</code>) document's heading, or, if not possible, from the directory name. Similarly the page links in the menu are inferred from the file headings, or, if not possible, from the file name.</p>
+<p>The title of the generated documents is automatically inferred from the <code>readme.md</code> (or <code>index.md</code>) document's heading, or, if not possible, from the directory name. Similarly the page links in the menu are inferred from the file headings, or, if not possible, from the file name.</p>
 <p>mdPage expects <strong>all</strong> contents to be in the immediate directory as root of the content and immediate subdirectories. It makes certain assumptions about structure and meaning. The content in subdirectories is separated out and used as different &quot;sections&quot; in the menu. Similar to the rules stated above, the section title is inferred from heading <code>readme.md</code> (or <code>index.md</code>) or, if not possible, from the directory name.</p>
 <p>Take a look at the <a href="/examples/sections">sections example</a> for an idea of how that works and what the result looks like.</p>
 <p>We can customize some things via command line options such as title, subtitle, and whether to generate a single full page document (no &quot;JavaScript&quot; pagination).</p>
@@ -150,8 +150,8 @@ There are also &quot;Content&quot; objects which are used to specify the main pa
 <h4>Link</h4>
 <p>Links have the following properties:</p>
 <ul>
-<li><code>link_type</code> - has to be either <code>&quot;script&quot;</code> for a script link; or <code>&quot;style&quot;</code> or <code>&quot;stylesheet&quot;</code> to specfy a stylesheet link.</li>
-<li><code>src</code> - the src URL to be applied to the <code>&lt;link&gt;</code> element</li>
+<li><code>link_type</code> - has to be either <code>&quot;script&quot;</code> for a script link; or <code>&quot;style&quot;</code> or <code>&quot;stylesheet&quot;</code> to specify a stylesheet link.</li>
+<li><code>src</code> - the URL to be applied to the <code>&lt;link&gt;</code> element</li>
 <li><code>integrity</code> - the <code>integrity</code> tag to be applied for SRI</li>
 <li><code>crossorigin</code> - the <code>crossorigin</code> tag to be applied for SRI</li>
 </ul>
@@ -173,7 +173,7 @@ There are also &quot;Content&quot; objects which are used to specify the main pa
 <h4>Footer</h4>
 <p>The <code>footer</code> config property is the custom footer content to be displayed at the top of the page. If root folder has <code>footer.md</code> that is automatically used as footer property of the config if one is not specified. The footer can be customized using <code>footer</code> property to center content or add logos or custom buttons.</p>
 <h4>Style</h4>
-<p>Cusom styles can be added within the <code>style</code> property. We use a forked / customized version of <a href="https://milligram.io/">Milligram</a> so all the same classes are available in markdown and HTML content.</p>
+<p>Custom styles can be added within the <code>style</code> property. We use a forked / customized version of <a href="https://milligram.io/">Milligram</a> so all the same classes are available in markdown and HTML content.</p>
 <h4>Script</h4>
 <p>Custom JavaScript can be added within the <code>script</code> config property.</p>
 <h3>Examples</h3>

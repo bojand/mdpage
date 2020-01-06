@@ -18,7 +18,7 @@
 - [ ] Add Rust docs
 - [ ] Convert file to path or pathbuf inside content
 - [ ] Clean up code
-- [ ] Cargo fmt and clippy
+- [x] Cargo fmt and clippy
 - [ ] Clean up `cargo.toml`
 - [ ] Add CSS vars for colors
 - [ ] Add builds and GitHub workflows
