@@ -5,6 +5,7 @@ on:
       branches:
       - master
       paths:
+      - 'docs/*.sh'
       - 'docs/*.md'
       - 'docs/*/*.md'
       - 'docs/*/*/*.md'
@@ -14,6 +15,7 @@ on:
       branches:
       - master
       paths:
+      - 'docs/*.sh'
       - 'docs/*.md'
       - 'docs/*/*.md'
       - 'docs/*/*/*.md'
@@ -25,12 +27,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out code
     - uses: actions/checkout@v1
+    
     - name: Build CLI
       run: cargo build --verbose
+    
     - name: Build
       run: |
         sh ./docs/build.sh
+    
     - name: Commit to repository
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

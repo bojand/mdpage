@@ -1,5 +1,5 @@
 <center>
-<a href="/">
+<a href="https://bojand.github.io/mdpage/">
 <img src="static/android-chrome-192x192.png" width="96" height="96">
 
 <br>
