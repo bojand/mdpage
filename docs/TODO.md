@@ -23,7 +23,7 @@
 - [x] Minify CSS and JavaScript
 - [x] Partials 
 - [x] Add single full page option 
-- [X] Fix local hrefs (Not possible / needed)
+- [X] Fix local hrefs (Not possible / needed) ?
 - [x] Add builds and GitHub workflows
 - [ ] Add binary and releases
 - [ ] Add Rust docs
