@@ -24,13 +24,15 @@
 - [x] Partials 
 - [x] Add single full page option 
 - [X] Fix local hrefs (Not possible / needed)
+- [x] Add builds and GitHub workflows
+- [ ] Add binary and releases
+- [ ] Add Rust docs
+- [ ] Add workflow to publish crate
 - [ ] Clean up `cargo.toml`
-- [ ] Add builds and GitHub workflows
 - [ ] Add crosscompile
 - [ ] Add support for html paths in `file` property
 - [ ] In docs workflow install CLI instead of building
 - [ ] Add ignore paths
-- [ ] Add Rust docs
 - [ ] Clean up code
 - [ ] Fix up errors
   - Add more info using `format!`
