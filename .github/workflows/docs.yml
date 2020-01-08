@@ -5,6 +5,7 @@ on:
       branches:
       - master
       paths:
+      - '.github/workflows/*.yml'
       - 'docs/*.sh'
       - 'docs/*.md'
       - 'docs/*/*.md'
@@ -15,6 +16,7 @@ on:
       branches:
       - master
       paths:
+      - '.github/workflows/*.yml'
       - 'docs/*.sh'
       - 'docs/*.md'
       - 'docs/*/*.md'
@@ -36,9 +38,9 @@ jobs:
       run: cargo build
     
     - name: Build
+      shell: bash
       run: |
-        sh chmod a+x ./docs/build.sh
-        sh ./docs/build.sh
+        ./docs/build.sh
     
     - name: Commit to repository
       env:
