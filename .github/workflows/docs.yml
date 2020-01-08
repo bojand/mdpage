@@ -29,7 +29,8 @@ jobs:
     - name: Build CLI
       run: cargo build --verbose
     - name: Build
-      run: ./docs/build.sh
+      run: |
+        sh ./docs/build.sh
     - name: Commit to repository
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
