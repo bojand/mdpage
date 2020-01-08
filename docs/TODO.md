@@ -15,25 +15,26 @@
 - [x] Tests
 - [x] Add logging
 - [x] Split into lib and bin
-- [ ] Add Rust docs
-- [ ] Convert file to path or pathbuf inside content
-- [ ] Clean up code
+- [x] Convert file to path or pathbuf inside content
 - [x] Cargo fmt and clippy
-- [ ] Clean up `cargo.toml`
-- [ ] Add CSS vars for colors
-- [ ] Add builds and GitHub workflows
 - [x] Document
 - [x] Examples
 - [x] Add CLI options for some stuff like title, subtitle, full_page
 - [x] Minify CSS and JavaScript
-- [ ] Add ignore paths
-- [ ] Fix up errors
-  - Add more info using `format!`
-  - Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
 - [x] Partials 
 - [x] Add single full page option 
 - [X] Fix local hrefs (Not possible / needed)
-- [ ] Add TOML and YAML support for config ?
+- [ ] Clean up `cargo.toml`
+- [ ] Add builds and GitHub workflows
+- [ ] Add crosscompile
+- [ ] Add ignore paths
+- [ ] Add Rust docs
+- [ ] Clean up code
+- [ ] Fix up errors
+  - Add more info using `format!`
+  - Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
+- [ ] Add CSS vars for colors ?
+- [ ] Add YAML support for config ?
 - [ ] Add output option ?
 - [ ] Add single meta portion ?
 - [ ] Add dark mode CSS and slider ?

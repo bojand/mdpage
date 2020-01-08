@@ -4,7 +4,6 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::path::Path;
-use std::path::PathBuf;
 
 pub fn title_string<R>(mut rdr: R) -> Option<String>
 where
@@ -59,14 +58,13 @@ pub fn build_title_for_dir(
 }
 
 pub fn get_title_from_file(
-    path: &PathBuf,
+    path: &Path,
     use_file_name: bool,
 ) -> Result<Option<String>, Box<dyn Error>> {
     let mut res = None;
 
     if use_file_name {
         if let Some(name_str) = path
-            .as_path()
             .file_stem()
             .and_then(|name_str| name_str.to_str())
         {
@@ -102,7 +100,7 @@ pub fn is_index_file(entry: &std::fs::DirEntry) -> bool {
     false
 }
 
-pub fn is_ext(path: &PathBuf, ext: &str) -> bool {
+pub fn is_ext(path: &Path, ext: &str) -> bool {
     path.extension()
         .unwrap_or_default()
         .to_str()
@@ -114,6 +112,8 @@ pub fn is_ext(path: &PathBuf, ext: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use std::path::PathBuf;
 
     #[test]
     fn test_title_string() {

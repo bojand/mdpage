@@ -257,7 +257,7 @@ fn init_entry_contents(
 
             if is_ext(&entry_path, "md") {
                 let mut c = Content::default();
-                c.file = Some(String::from(entry_path.as_path().to_str().unwrap()));
+                c.file = Some(entry_path);
                 c.init_from_file(root);
                 let mut ct = ContentType::Normal;
 

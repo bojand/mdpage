@@ -1,5 +1,4 @@
 use std::error::Error;
-use std::ffi::OsStr;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -22,11 +21,11 @@ pub struct Content {
     pub html: Option<String>,
 
     #[derivative(PartialEq = "ignore")]
-    pub file: Option<String>,
+    pub file: Option<PathBuf>,
 }
 
 impl Content {
-    pub fn new(file: Option<String>) -> Content {
+    pub fn new(file: Option<PathBuf>) -> Content {
         Content {
             is_heading: Some(false),
             is_break: Some(false),
@@ -64,20 +63,18 @@ impl Content {
 
     pub fn init_from_file(&mut self, root: &Path) {
         if self.file.is_some() {
-            let pathbuf = PathBuf::from(self.file.as_ref().unwrap());
-            let path = pathbuf.as_path();
-            let fullpath = if root.has_root() && path.is_relative() {
-                root.join(path)
-                    .as_path()
-                    .canonicalize()
-                    .expect("cannot resolve path")
-            } else {
-                path.to_path_buf()
-            };
+            let mut pathbuf = self.file.clone().unwrap();
 
-            if is_ext(&fullpath, "md") {
-                self.label = get_title_from_file(&fullpath, true).unwrap_or_else(|_| {
-                    panic!("could not get title from path: {}", path.display())
+            if root.has_root() && pathbuf.is_relative() {
+                pathbuf = root
+                    .join(pathbuf)
+                    .canonicalize()
+                    .expect("cannot resolve path");
+            }
+
+            if is_ext(&pathbuf, "md") {
+                self.label = get_title_from_file(&pathbuf, true).unwrap_or_else(|_| {
+                    panic!("could not get title from path: {}", pathbuf.display())
                 });
             }
         }
@@ -90,19 +87,16 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
     }
 
     if c.file.is_some() {
-        let path_str = OsStr::new(c.file.as_ref().unwrap().as_str());
-        let mut path = Path::new(path_str);
+        let mut pathbuf = c.file.clone().unwrap();
 
-        let pathbuf = if root.has_root() && path.is_relative() {
-            root.join(path)
-                .as_path()
+        if root.has_root() && pathbuf.is_relative() {
+            pathbuf = root
+                .join(pathbuf)
                 .canonicalize()
-                .expect("cannot resolve path")
-        } else {
-            path.to_path_buf()
-        };
+                .expect("cannot resolve path");
+        }
 
-        path = pathbuf.as_path();
+        let path = pathbuf.as_path();
 
         info!("processing file: {}", path.display());
 
@@ -162,35 +156,35 @@ mod tests {
         assert_eq!(c, expected);
 
         // with file
-        c = Content::new(Some(String::from("tests/fixtures/utils3/readme.md")));
+        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
         assert!(fill_content(&mut c, &root).is_ok());
-        let mut expected = Content::new(Some(String::from("tests/fixtures/utils3/readme.md")));
+        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
         expected.label = Some(String::from("Main page"));
         expected.markdown = Some(String::from("# Main page\n\nSome content."));
         expected.html = Some(String::from("<h1>Main page</h1>\n<p>Some content.</p>\n"));
         assert_eq!(c, expected);
 
         // with unknown file
-        c = Content::new(Some(String::from(
+        c = Content::new(Some(PathBuf::from(
             "tests/fixtures/utils3/readme_unknown.md",
         )));
         assert!(fill_content(&mut c, &root).is_err());
 
         // with url
-        c = Content::new(Some(String::from("tests/fixtures/utils3/readme.md")));
+        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
         c.url = Some(String::from("https://github.com"));
         assert!(fill_content(&mut c, &root).is_ok());
-        let mut expected = Content::new(Some(String::from("tests/fixtures/utils3/readme.md")));
+        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
         expected.markdown = None;
         expected.html = None;
         expected.url = Some(String::from("https://github.com"));
         assert_eq!(c, expected);
 
         // with html
-        c = Content::new(Some(String::from("tests/fixtures/utils3/readme.md")));
+        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
         c.html = Some(String::from("<h1>Some title</h1>"));
         assert!(fill_content(&mut c, &root).is_ok());
-        let mut expected = Content::new(Some(String::from("tests/fixtures/utils3/readme.md")));
+        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
         expected.markdown = None;
         expected.html = Some(String::from("<h1>Some title</h1>"));
         assert_eq!(c, expected);
