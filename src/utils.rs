@@ -64,10 +64,7 @@ pub fn get_title_from_file(
     let mut res = None;
 
     if use_file_name {
-        if let Some(name_str) = path
-            .file_stem()
-            .and_then(|name_str| name_str.to_str())
-        {
+        if let Some(name_str) = path.file_stem().and_then(|name_str| name_str.to_str()) {
             res = Some(String::from(name_str));
         }
     }
