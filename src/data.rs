@@ -129,6 +129,8 @@ impl Data {
             .flatten()
             .collect::<Vec<Content>>();
 
+        res.sort_by(|a, b| a.file.cmp(&b.file));
+
         paths = fs::read_dir(root)?;
 
         let mut sections = paths
@@ -162,6 +164,8 @@ impl Data {
                                 )
                                 .expect("could not get title");
                                 let heading = Content::new_heading(title);
+
+                                dirres.sort_by(|a, b| a.file.cmp(&b.file));
 
                                 dirres.insert(0, heading);
 

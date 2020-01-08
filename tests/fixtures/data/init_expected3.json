@@ -14,12 +14,12 @@
     },
     "contents": [
         {
-            "label": "Page 2",
-            "file": "tests/fixtures/data/dir1/page2.md"
-        },
-        {
             "label": "Page 1",
             "file": "tests/fixtures/data/dir1/page1.md"
+        },
+        {
+            "label": "Page 2",
+            "file": "tests/fixtures/data/dir1/page2.md"
         },
         {
             "is_heading": false,
