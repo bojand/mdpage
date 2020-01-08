@@ -25,6 +25,10 @@
             "file": "tests/fixtures/data/dir2/guide.md",
             "markdown": "# Developer Guide\n\nGuide content.",
             "html": "<h1>Developer Guide</h1>\n<p>Guide content.</p>\n"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
         }
     ]
 }

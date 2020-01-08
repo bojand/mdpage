@@ -1,0 +1,48 @@
+# TODO
+
+- [x] Add subfolder support to data
+- [x] Add `is_heading` to content ?
+- [x] Add heading rendering
+- [x] Add scripts
+- [x] Add style
+- [x] Add footer
+- [x] Fix whitespace control {{~}}
+- [x] Add meta (author, icon)
+- [x] Add header 
+- [x] Add CLI help
+- [x] Add CLI argument
+- [x] Unify CSS
+- [x] Tests
+- [x] Add logging
+- [x] Split into lib and bin
+- [x] Convert file to path or pathbuf inside content
+- [x] Cargo fmt and clippy
+- [x] Document
+- [x] Examples
+- [x] Add CLI options for some stuff like title, subtitle, full_page
+- [x] Minify CSS and JavaScript
+- [x] Partials 
+- [x] Add single full page option 
+- [X] Fix local hrefs (Not possible / needed)
+- [ ] Clean up `cargo.toml`
+- [ ] Add builds and GitHub workflows
+- [ ] Add crosscompile
+- [ ] Add ignore paths
+- [ ] Add Rust docs
+- [ ] Clean up code
+- [ ] Fix up errors
+  - Add more info using `format!`
+  - Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
+- [ ] Add CSS vars for colors ?
+- [ ] Add YAML support for config ?
+- [ ] Add output option ?
+- [ ] Add single meta portion ?
+- [ ] Add dark mode CSS and slider ?
+  - https://css-tricks.com/dark-modes-with-css/
+  - https://www.creativebloq.com/how-to/how-to-implement-light-or-dark-modes-in-css
+  - https://flaviocopes.com/dark-mode/
+  - https://www.developerdrive.com/css-dark-mode/
+  - https://codyhouse.co/blog/post/dark-light-switch-css-javascript
+  - https://www.freecodecamp.org/news/how-to-get-dark-mode-working-with-css-740ad31e22e/
+  - https://www.w3schools.com/howto/howto_js_toggle_dark_mode.asp
+  - https://dev.to/ananyaneogi/create-a-dark-light-mode-switch-with-css-variables-34l8

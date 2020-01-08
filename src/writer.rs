@@ -27,9 +27,7 @@ pub fn array_length_helper(
         .as_ref()
         .and_then(|v| v.value().as_array())
         .map(|arr| arr.len())
-        .ok_or(RenderError::new(
-            "Param 0 with 'array' type is required for array_length helper",
-        ))?;
+        .unwrap_or_default();
 
     out.write(length.to_string().as_ref())?;
 
@@ -62,5 +60,5 @@ pub fn write_data(mut writer: impl std::io::Write, data: &Data) -> Result<(), Bo
         pos += bytes_written;
     }
 
-    return Ok(());
+    Ok(())
 }

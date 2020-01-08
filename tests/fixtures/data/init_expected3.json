@@ -20,6 +20,10 @@
         {
             "label": "Page 1",
             "file": "tests/fixtures/data/dir1/page1.md"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
         }
     ]
 }

@@ -1,6 +1,7 @@
 {
-    "full_page": false,
+    "full_page": true,
     "title": "Readme main",
+    "subtitle": "Custom subtitle",
     "main": {
         "label": "Readme main",
         "file": "tests/fixtures/data/readme.md",

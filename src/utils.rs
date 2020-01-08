@@ -4,7 +4,6 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::path::Path;
-use std::path::PathBuf;
 
 pub fn title_string<R>(mut rdr: R) -> Option<String>
 where
@@ -14,15 +13,15 @@ where
 
     while rdr.read_line(&mut line).expect("Unable to read line") > 0 {
         let mut trimmed = line.trim();
-        if trimmed.starts_with("#") {
+        if trimmed.starts_with('#') {
             trimmed = trimmed.trim_start_matches('#').trim_matches(' ');
-            if trimmed.len() > 0 {
+            if !trimmed.is_empty() {
                 return Some(trimmed.into());
             }
         }
     }
 
-    return None;
+    None
 }
 
 pub fn build_title_for_dir(
@@ -43,11 +42,11 @@ pub fn build_title_for_dir(
             if let Ok(entry) = p {
                 return is_index_file(entry);
             }
-            return false;
+            false
         });
 
-        if index.is_some() {
-            let index_path = index.unwrap().unwrap().path();
+        if let Some(index_value) = index {
+            let index_path = index_value.unwrap().path();
 
             if let Some(title) = get_title_from_file(&index_path, false)? {
                 res = title;
@@ -55,18 +54,17 @@ pub fn build_title_for_dir(
         }
     }
 
-    return Ok(res);
+    Ok(res)
 }
 
 pub fn get_title_from_file(
-    path: &PathBuf,
+    path: &Path,
     use_file_name: bool,
 ) -> Result<Option<String>, Box<dyn Error>> {
     let mut res = None;
 
     if use_file_name {
         if let Some(name_str) = path
-            .as_path()
             .file_stem()
             .and_then(|name_str| name_str.to_str())
         {
@@ -83,39 +81,39 @@ pub fn get_title_from_file(
         res = from_file;
     }
 
-    return Ok(res);
+    Ok(res)
 }
 
 pub fn is_index_file(entry: &std::fs::DirEntry) -> bool {
     if let Ok(file_type) = entry.file_type() {
-        if !file_type.is_file() {
-            return false;
+        if file_type.is_file() {
+            return entry
+                .path()
+                .file_stem()
+                .and_then(|file_stem| file_stem.to_str())
+                .map(|file_name| file_name.to_lowercase())
+                .map(|file_name| file_name == "index" || file_name == "readme")
+                .unwrap_or_else(|| false);
         }
-        return entry
-            .path()
-            .file_stem()
-            .and_then(|file_stem| file_stem.to_str())
-            .and_then(|file_name| Some(file_name.to_lowercase()))
-            .and_then(|file_name| Some(file_name == "index" || file_name == "readme"))
-            .unwrap_or_else(|| false);
     }
 
-    return false;
+    false
 }
 
-pub fn is_markdown(path: &PathBuf) -> bool {
-    return path
-        .extension()
+pub fn is_ext(path: &Path, ext: &str) -> bool {
+    path.extension()
         .unwrap_or_default()
         .to_str()
         .unwrap_or_default()
         .to_lowercase()
-        == "md";
+        == ext
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use std::path::PathBuf;
 
     #[test]
     fn test_title_string() {

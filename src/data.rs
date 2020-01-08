@@ -6,6 +6,7 @@ use std::error::Error;
 use std::fs;
 use std::fs::File;
 
+use std::io::prelude::*;
 use std::io::BufReader;
 use std::path::Path;
 use std::path::PathBuf;
@@ -13,7 +14,7 @@ use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 
 use crate::content::Content;
-use crate::utils::{build_title_for_dir, is_index_file, is_markdown};
+use crate::utils::{build_title_for_dir, is_ext, is_index_file};
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Data {
@@ -92,12 +93,13 @@ impl Data {
             self.footer.as_mut().unwrap().init_from_file(root);
         }
 
-        let paths = fs::read_dir(root)?;
+        let mut paths = fs::read_dir(root)?;
 
         let mut main = None;
         let mut header = None;
         let mut footer = None;
-        let res = paths
+
+        let mut res = paths
             .filter_map(|p| {
                 if let Ok(entry) = p {
                     if let Ok(file_type) = entry.file_type() {
@@ -106,20 +108,34 @@ impl Data {
                                 match ct {
                                     ContentType::Main => {
                                         main = Some(c);
-                                        return None;
+                                        None
                                     }
                                     ContentType::Footer => {
                                         footer = Some(c);
-                                        return None;
+                                        None
                                     }
                                     ContentType::Header => {
                                         header = Some(c);
-                                        return None;
+                                        None
                                     }
-                                    _ => return Some(vec![c]),
+                                    _ => Some(vec![c]),
                                 }
                             });
-                        } else {
+                        }
+                    }
+                }
+                None
+            })
+            .flatten()
+            .collect::<Vec<Content>>();
+
+        paths = fs::read_dir(root)?;
+
+        let mut sections = paths
+            .filter_map(|p| {
+                if let Ok(entry) = p {
+                    if let Ok(file_type) = entry.file_type() {
+                        if file_type.is_dir() {
                             let entries =
                                 fs::read_dir(entry.path().as_path()).expect("could not read dir");
 
@@ -129,18 +145,16 @@ impl Data {
                                         if let Ok(de_file_type) = dentry.file_type() {
                                             if de_file_type.is_file() {
                                                 return init_entry_contents(root, dentry, false)
-                                                    .and_then(|(c, _)| {
-                                                        return Some(vec![c]);
-                                                    });
+                                                    .map(|(c, _)| vec![c]);
                                             }
                                         }
                                     }
-                                    return None;
+                                    None
                                 })
                                 .flatten()
                                 .collect::<Vec<Content>>();
 
-                            if dirres.len() > 0 {
+                            if !dirres.is_empty() {
                                 let title = build_title_for_dir(
                                     entry.path().as_path(),
                                     fs::read_dir(entry.path()).expect("could not get title"),
@@ -162,10 +176,15 @@ impl Data {
                         }
                     }
                 }
-                return None;
+                None
             })
             .flatten()
             .collect::<Vec<Content>>();
+
+        if !res.is_empty() {
+            res.push(Content::new_break());
+        }
+        res.append(&mut sections);
 
         if self.main.is_none() {
             self.main = main;
@@ -183,7 +202,7 @@ impl Data {
             self.contents = Some(res);
         }
 
-        return Ok(());
+        Ok(())
     }
 
     fn build_contents(&mut self, root: &Path) -> Result<(), Box<dyn Error>> {
@@ -207,15 +226,23 @@ impl Data {
             crate::content::fill_content(self.footer.as_mut().unwrap(), root)?;
         }
 
-        return Ok(());
+        Ok(())
     }
 }
 
 fn config_file(root: &Path) -> Option<PathBuf> {
-    let json_config = root.join("mdpage.json");
-    match json_config.as_path().exists() {
-        true => Some(json_config),
-        false => None,
+    let mut r = Path::new(root);
+    let json_config = r.join("mdpage.json");
+    if json_config.as_path().exists() {
+        Some(json_config)
+    } else {
+        r = Path::new(root);
+        let toml_config = r.join("mdpage.toml");
+        if toml_config.as_path().exists() {
+            Some(toml_config)
+        } else {
+            None
+        }
     }
 }
 
@@ -228,9 +255,9 @@ fn init_entry_contents(
         if file_type.is_file() {
             let entry_path = entry.path();
 
-            if is_markdown(&entry_path) {
+            if is_ext(&entry_path, "md") {
                 let mut c = Content::default();
-                c.file = Some(String::from(entry_path.as_path().to_str().unwrap()));
+                c.file = Some(entry_path);
                 c.init_from_file(root);
                 let mut ct = ContentType::Normal;
 
@@ -240,14 +267,14 @@ fn init_entry_contents(
                         .path()
                         .file_stem()
                         .and_then(|file_stem| file_stem.to_str())
-                        .and_then(|file_name| Some(file_name.to_lowercase() == "footer"))
+                        .map(|file_name| file_name.to_lowercase() == "footer")
                         .unwrap_or_else(|| false);
                 let is_header = check_type
                     && entry
                         .path()
                         .file_stem()
                         .and_then(|file_stem| file_stem.to_str())
-                        .and_then(|file_name| Some(file_name.to_lowercase() == "header"))
+                        .map(|file_name| file_name.to_lowercase() == "header")
                         .unwrap_or_else(|| false);
                 if is_index {
                     ct = ContentType::Main;
@@ -258,15 +285,16 @@ fn init_entry_contents(
                 if is_header {
                     ct = ContentType::Header;
                 }
+
                 return Some((c, ct));
             }
         }
     }
 
-    return None;
+    None
 }
 
-pub fn build(root: &Path) -> Result<Data, Box<dyn Error>> {
+pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn Error>> {
     let mut r = root;
     let current_dir = env::current_dir()?;
     let abs;
@@ -276,19 +304,25 @@ pub fn build(root: &Path) -> Result<Data, Box<dyn Error>> {
     }
 
     let path = config_file(r);
-    let mut data: Data;
-    if path.is_none() {
-        data = Data::default();
-    } else {
-        let file = File::open(path.unwrap().as_path())?;
-        let reader = BufReader::new(file);
-        data = serde_json::from_reader(reader)?;
+    let mut data = initial_value.unwrap_or_default();
+
+    if let Some(file_path) = path {
+        info!("reading config: {}", file_path.display());
+        let mut file = File::open(file_path.as_path())?;
+        if is_ext(&file_path, "json") {
+            let reader = BufReader::new(file);
+            data = serde_json::from_reader(reader)?;
+        } else if is_ext(&file_path, "toml") {
+            let mut content = String::new();
+            file.read_to_string(&mut content)?;
+            data = toml::from_str(&content)?;
+        }
     }
 
-    return match data.build(r) {
+    match data.build(r) {
         Ok(()) => Ok(data),
         Err(e) => Err(e),
-    };
+    }
 }
 
 #[cfg(test)]
