@@ -21,7 +21,7 @@ The [mdPage documentation](https://bojand.github.io/mdpage) is generated using t
 
 ## Installation
 
-There are multiple ways to install mdBook.
+There are multiple ways to install mdPage.
 
 1. **Binaries**
 
@@ -30,14 +30,14 @@ There are multiple ways to install mdBook.
 
 2. **From Crates.io**
 
-   This requires at least [Rust] 1.35 and Cargo to be installed. Once you have installed
+   This requires Rust and Cargo to be installed. Once you have installed
    Rust, type the following in the terminal:
 
    ```
-   cargo install mdbook
+   cargo install mdpage
    ```
 
-   This will download and compile mdBook for you, the only thing left to do is
+   This will download and compile mdPage for you, the only thing left to do is
    to add the Cargo bin directory to your `PATH`.
 
 ## Usage
