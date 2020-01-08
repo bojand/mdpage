@@ -40,4 +40,4 @@ file = "config.md"
 file = "examples.md"
 
 [[contents]]
-file = "todo.md"
+file = "TODO.md"
