@@ -37,7 +37,7 @@ jobs:
     
     - name: Build
       run: |
-        sh pwd
+        sh chmod a+x ./docs/build.sh
         sh ./docs/build.sh
     
     - name: Commit to repository
