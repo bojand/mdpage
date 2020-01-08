@@ -156,9 +156,9 @@ mod tests {
         assert_eq!(c, expected);
 
         // with file
-        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
+        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/README.md")));
         assert!(fill_content(&mut c, &root).is_ok());
-        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
+        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/README.md")));
         expected.label = Some(String::from("Main page"));
         expected.markdown = Some(String::from("# Main page\n\nSome content."));
         expected.html = Some(String::from("<h1>Main page</h1>\n<p>Some content.</p>\n"));
@@ -171,20 +171,20 @@ mod tests {
         assert!(fill_content(&mut c, &root).is_err());
 
         // with url
-        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
+        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/README.md")));
         c.url = Some(String::from("https://github.com"));
         assert!(fill_content(&mut c, &root).is_ok());
-        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
+        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/README.md")));
         expected.markdown = None;
         expected.html = None;
         expected.url = Some(String::from("https://github.com"));
         assert_eq!(c, expected);
 
         // with html
-        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
+        c = Content::new(Some(PathBuf::from("tests/fixtures/utils3/README.md")));
         c.html = Some(String::from("<h1>Some title</h1>"));
         assert!(fill_content(&mut c, &root).is_ok());
-        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/readme.md")));
+        let mut expected = Content::new(Some(PathBuf::from("tests/fixtures/utils3/README.md")));
         expected.markdown = None;
         expected.html = Some(String::from("<h1>Some title</h1>"));
         assert_eq!(c, expected);
