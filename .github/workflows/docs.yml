@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Check out code
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
     
     - name: Build CLI
       run: cargo build --verbose

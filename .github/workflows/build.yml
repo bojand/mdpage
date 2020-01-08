@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Check out code
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
     
     - name: Install rustfm
       run: rustup component add rustfmt
