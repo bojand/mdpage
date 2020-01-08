@@ -27,6 +27,7 @@
 - [ ] Clean up `cargo.toml`
 - [ ] Add builds and GitHub workflows
 - [ ] Add crosscompile
+- [ ] Add support for html paths in `file` property
 - [ ] Add ignore paths
 - [ ] Add Rust docs
 - [ ] Clean up code

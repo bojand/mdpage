@@ -1,6 +1,11 @@
 ## mdpage
 
-[mdPage](https://github.com/bojand/mdpage) is a minimal, opinionated, command line tool (and [Rust](https://www.rust-lang.org/) crate) to create single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder. 
+[![Build Status](https://github.com/bojand/mdpage/workflows/build/badge.svg?style=flat-square)](https://github.com/bojand/mdpage/actions?workflow=CI)
+[![LICENSE](https://img.shields.io/github/license/bojand/mdpage.svg?style=flat-square)](LICENSE)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square)](https://www.paypal.me/bojandj)
+[![Buy me a coffee](https://img.shields.io/badge/buy%20me-a%20coffee-orange.svg?style=flat-square)](https://www.buymeacoffee.com/bojand)
+
+[mdPage](https://github.com/bojand/mdpage) is a minimal, opinionated, command line utility (and [Rust](https://www.rust-lang.org/) crate) for creating single-page HTML documentation from markdown files. At it's simplest basic form of usage, it takes no input and should generate practical documentation from all markdown files in a folder. 
 
 Indeed this very documentation is generated using `mdpage` tool with some minor configuration and serves as an example of generated output.
 
