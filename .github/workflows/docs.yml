@@ -25,16 +25,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RUST_BACKTRACE: 1
 
     steps:
     - name: Check out code
       uses: actions/checkout@v1
     
-    - name: Build CLI
-      run: cargo build --verbose
+    - name: Build mdpage CLI
+      run: cargo build
     
     - name: Build
       run: |
+        sh pwd
         sh ./docs/build.sh
     
     - name: Commit to repository

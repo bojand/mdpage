@@ -28,6 +28,7 @@
 - [ ] Add builds and GitHub workflows
 - [ ] Add crosscompile
 - [ ] Add support for html paths in `file` property
+- [ ] In docs workflow install CLI instead of building
 - [ ] Add ignore paths
 - [ ] Add Rust docs
 - [ ] Clean up code
