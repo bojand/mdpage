@@ -229,12 +229,28 @@ mod tests {
 
         root = PathBuf::from("tests/fixtures/utils2");
         let mut paths = fs::read_dir(root).unwrap();
-        paths.next(); // consume 1
-        assert_eq!(is_index_file(&paths.next().unwrap().unwrap()), true);
+        let mut first = is_index_file(&paths.next().unwrap().unwrap()); // consume 1st
+        let mut second = is_index_file(&paths.next().unwrap().unwrap()); // consume 2nd
+
+        if first {
+            assert_eq!(first, true);
+            assert_eq!(second, false);
+        } else {
+            assert_eq!(first, false);
+            assert_eq!(second, true);
+        }
 
         root = PathBuf::from("tests/fixtures/utils3");
         paths = fs::read_dir(root).unwrap();
-        paths.next(); // consume 1
-        assert_eq!(is_index_file(&paths.next().unwrap().unwrap()), true);
+        first = is_index_file(&paths.next().unwrap().unwrap()); // consume 1st
+        second = is_index_file(&paths.next().unwrap().unwrap()); // consume 2nd
+
+        if first {
+            assert_eq!(first, true);
+            assert_eq!(second, false);
+        } else {
+            assert_eq!(first, false);
+            assert_eq!(second, true);
+        }
     }
 }
