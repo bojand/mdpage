@@ -159,10 +159,15 @@ impl Data {
                             if !dirres.is_empty() {
                                 let title = build_title_for_dir(
                                     entry.path().as_path(),
-                                    fs::read_dir(entry.path()).expect("could not get title"),
+                                    fs::read_dir(entry.path()).expect("could not read dir"),
                                     false,
                                 )
-                                .expect("could not get title");
+                                .unwrap_or_else(|_| {
+                                    panic!(
+                                        "could not get title from path: {}",
+                                        entry.path().display()
+                                    )
+                                });
                                 let heading = Content::new_heading(title);
 
                                 dirres.sort_by(|a, b| a.file.cmp(&b.file));

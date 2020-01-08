@@ -66,10 +66,13 @@ impl Content {
             let mut pathbuf = self.file.clone().unwrap();
 
             if root.has_root() && pathbuf.is_relative() {
-                pathbuf = root
-                    .join(pathbuf)
-                    .canonicalize()
-                    .expect("cannot resolve path");
+                pathbuf = root.join(&pathbuf).canonicalize().unwrap_or_else(|_| {
+                    panic!(
+                        "could not resolve path. root: {} path: {}",
+                        root.display(),
+                        pathbuf.display()
+                    )
+                });
             }
 
             if is_ext(&pathbuf, "md") {
@@ -90,10 +93,13 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
         let mut pathbuf = c.file.clone().unwrap();
 
         if root.has_root() && pathbuf.is_relative() {
-            pathbuf = root
-                .join(pathbuf)
-                .canonicalize()
-                .expect("cannot resolve path");
+            pathbuf = root.join(&pathbuf).canonicalize().unwrap_or_else(|_| {
+                panic!(
+                    "could not resolve path. root: {} path: {}",
+                    root.display(),
+                    pathbuf.display()
+                )
+            });
         }
 
         let path = pathbuf.as_path();
