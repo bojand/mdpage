@@ -52,7 +52,7 @@ jobs:
         # Update origin with token
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         # Checkout the branch so we can push back to it
-        # git checkout master
+        git checkout master
         git add .
         # Only commit and push if we have changes
         git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)  
