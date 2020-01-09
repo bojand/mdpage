@@ -15,7 +15,7 @@
 <body>
     <div class="container title"><center>
 <a href="https://bojand.github.io/mdpage/">
-<img src="static/android-chrome-192x192.png" width="96" height="96">
+<img src="static/logo-192x192.png" width="96" height="96">
 <br>
 <br>
 <h1>mdPage</h1>
@@ -307,7 +307,7 @@ url = &quot;https://github.com&quot;      # An external link
                 <h2>Examples</h2>
 <p>All examples can be viewed on <a href="https://github.com/bojand/mdpage">GitHub</a>.</p>
 <h3>Basic</h3>
-<p><a href="/examples/basic">Basic example</a></p>
+<p><a href="/mdpage/docs/examples/basic">Basic example</a></p>
 <p>No custom configuration.</p>
 <p>Structure:</p>
 <pre><code>./docs/examples/basic
@@ -320,7 +320,7 @@ url = &quot;https://github.com&quot;      # An external link
 </code></pre>
 <h3>Sections</h3>
 <p>No custom configuration. Demonstrates how different directories are automatically treated as different sections of content.</p>
-<p><a href="/examples/sections">Sections example</a></p>
+<p><a href="/mdpage/docs/examples/sections">Sections example</a></p>
 <p>Structure:</p>
 <pre><code>./docs/examples/sections
 ├── index.md
@@ -335,7 +335,7 @@ url = &quot;https://github.com&quot;      # An external link
 <pre><code class="language-sh">$ mdpage ./docs/examples/sections
 </code></pre>
 <h3>Full page</h3>
-<p><a href="/examples/full_page">Full page example</a></p>
+<p><a href="/mdpage/docs/examples/full_page">Full page example</a></p>
 <p>Using command line to specify custom title, subtitle, and full page options.
 Automatically injects footer because we have <code>footer.md</code>.</p>
 <p>Structure:</p>
@@ -355,7 +355,7 @@ Automatically injects footer because we have <code>footer.md</code>.</p>
 </code></pre>
 <h3>Config</h3>
 <p>Customized build using <code>mdpage.json</code> file. Specifies script and style links to add <a href="https://highlightjs.org/">highlight.js</a> support. Specifies content to control order of menu items and sections, and to add external links.</p>
-<p><a href="/examples/config">Config example</a></p>
+<p><a href="/mdpage/docs/examples/config">Config example</a></p>
 <p>Structure:</p>
 <pre><code>./docs/examples/config
 ├── mdpage.json
@@ -378,9 +378,9 @@ Automatically injects footer because we have <code>footer.md</code>.</p>
 ├── install.md
 ├── usage.md
 ├── TODO.md
-├── mdpage.json
+├── mdpage.toml
 ├── static
-│  ├── android-chrome-192x192.png
+│  ├── logo-192x192.png
 │  └── favicon.ico
 ├── examples
    ├── basic
@@ -413,7 +413,6 @@ Automatically injects footer because we have <code>footer.md</code>.</p>
 <li><input type="checkbox" disabled="" checked="" /> Split into lib and bin</li>
 <li><input type="checkbox" disabled="" checked="" /> Convert file to path or pathbuf inside content</li>
 <li><input type="checkbox" disabled="" checked="" /> Cargo fmt and clippy</li>
-<li><input type="checkbox" disabled="" checked="" /> Document</li>
 <li><input type="checkbox" disabled="" checked="" /> Examples</li>
 <li><input type="checkbox" disabled="" checked="" /> Add CLI options for some stuff like title, subtitle, full_page</li>
 <li><input type="checkbox" disabled="" checked="" /> Minify CSS and JavaScript</li>
@@ -421,21 +420,23 @@ Automatically injects footer because we have <code>footer.md</code>.</p>
 <li><input type="checkbox" disabled="" checked="" /> Add single full page option</li>
 <li><input type="checkbox" disabled="" checked="" /> Fix local hrefs (Not possible? / needed)</li>
 <li><input type="checkbox" disabled="" checked="" /> Add builds and GitHub workflows</li>
+<li><input type="checkbox" disabled="" /> Add support for html paths in <code>file</code> property</li>
+<li><input type="checkbox" disabled="" /> Add dir to content</li>
 <li><input type="checkbox" disabled="" /> Add binary and releases</li>
 <li><input type="checkbox" disabled="" /> Add Rust docs</li>
+<li><input type="checkbox" disabled="" /> Document</li>
 <li><input type="checkbox" disabled="" /> Add workflow to publish crate</li>
+<li><input type="checkbox" disabled="" /> Add ignore paths</li>
 <li><input type="checkbox" disabled="" /> Clean up <code>cargo.toml</code></li>
 <li><input type="checkbox" disabled="" /> Add crosscompile</li>
-<li><input type="checkbox" disabled="" /> Add support for html paths in <code>file</code> property</li>
 <li><input type="checkbox" disabled="" /> In docs workflow install CLI instead of building</li>
-<li><input type="checkbox" disabled="" /> Add ignore paths</li>
 <li><input type="checkbox" disabled="" /> Clean up code</li>
 <li><input type="checkbox" disabled="" /> Fix up errors
 <ul>
-<li>Add more info using <code>format!</code></li>
-<li>Add failure and context ? See <a href="https://rust-cli.github.io/book/tutorial/errors.html">https://rust-cli.github.io/book/tutorial/errors.html</a></li>
+<li><input type="checkbox" disabled="" checked="" /> Add more info using <code>format!</code></li>
 </ul>
 </li>
+<li><input type="checkbox" disabled="" /> Add failure and context ? See <a href="https://rust-cli.github.io/book/tutorial/errors.html">https://rust-cli.github.io/book/tutorial/errors.html</a></li>
 <li><input type="checkbox" disabled="" /> Add CSS vars for colors ?</li>
 <li><input type="checkbox" disabled="" /> Add YAML support for config ?</li>
 <li><input type="checkbox" disabled="" /> Add output option ?</li>
