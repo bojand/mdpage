@@ -44,7 +44,7 @@ jobs:
     
     - name: Commit to repository
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.DOCS_ACTION_TOKEN }}
         COMMIT_MSG: Update documentation
       run: |
         git config user.email "dbojan@gmail.com"

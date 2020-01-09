@@ -1,6 +1,6 @@
 ## mdpage
 
-[![Build Status](https://github.com/bojand/mdpage/workflows/build/badge.svg?style=flat-square)](https://github.com/bojand/mdpage/actions?workflow=CI)
+[![Build Status](https://github.com/bojand/mdpage/workflows/build/badge.svg?style=flat-square)](https://github.com/bojand/mdpage/actions?workflow=build)
 [![LICENSE](https://img.shields.io/github/license/bojand/mdpage.svg?style=flat-square)](LICENSE)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square)](https://www.paypal.me/bojandj)
 [![Buy me a coffee](https://img.shields.io/badge/buy%20me-a%20coffee-orange.svg?style=flat-square)](https://www.buymeacoffee.com/bojand)
