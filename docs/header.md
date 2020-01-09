@@ -1,6 +1,6 @@
 <center>
 <a href="https://bojand.github.io/mdpage/">
-<img src="static/android-chrome-192x192.png" width="96" height="96">
+<img src="static/logo-192x192.png" width="96" height="96">
 
 <br>
 <br>

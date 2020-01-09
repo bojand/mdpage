@@ -1,6 +1,6 @@
 <div align="center">
 	<br>
-	<img src="docs/static/android-chrome-192x192.png" alt="Logo" width="96" height="96">
+	<img src="docs/static/logo-192x192.png" alt="Logo" width="96" height="96">
 	<br>
 </div>
 

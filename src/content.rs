@@ -104,23 +104,36 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
 
         let path = pathbuf.as_path();
 
-        info!("processing file: {}", path.display());
+        if is_ext(&path, "md") || is_ext(&path, "html") || is_ext(&path, "htm") {
+            info!("processing file: {}", path.display());
 
-        if c.label.is_none() {
-            let title = get_title_from_file(&pathbuf, true)?;
-            c.label = title;
-        }
+            if c.label.is_none() {
+                if is_ext(&path, "md") {
+                    let title = get_title_from_file(&path, true)?;
+                    c.label = title;
+                } else if let Some(name_str) =
+                    path.file_stem().and_then(|name_str| name_str.to_str())
+                {
+                    c.label = Some(String::from(name_str));
+                }
+            }
 
-        let mut file_contents = String::new();
-        let mut file = File::open(path)?;
-        file.read_to_string(&mut file_contents)?;
-        let markdown = file_contents.trim();
-        if !markdown.is_empty() {
-            c.markdown = Some(markdown.to_owned());
+            let mut file_contents = String::new();
+            let mut file = File::open(path)?;
+            file.read_to_string(&mut file_contents)?;
+            let trimmed = file_contents.trim();
+
+            if !trimmed.is_empty() {
+                if is_ext(&path, "md") {
+                    c.markdown = Some(trimmed.to_owned());
+                } else {
+                    c.html = Some(trimmed.to_owned());
+                }
+            }
         }
     }
 
-    if c.markdown.is_some() {
+    if c.html.is_none() && c.markdown.is_some() {
         let options = ComrakOptions {
             ext_strikethrough: true,
             ext_autolink: true,

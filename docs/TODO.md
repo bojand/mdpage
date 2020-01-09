@@ -17,7 +17,6 @@
 - [x] Split into lib and bin
 - [x] Convert file to path or pathbuf inside content
 - [x] Cargo fmt and clippy
-- [x] Document
 - [x] Examples
 - [x] Add CLI options for some stuff like title, subtitle, full_page
 - [x] Minify CSS and JavaScript
@@ -25,18 +24,20 @@
 - [x] Add single full page option 
 - [X] Fix local hrefs (Not possible? / needed)
 - [x] Add builds and GitHub workflows
+- [ ] Add support for html paths in `file` property
+- [ ] Add dir to content
 - [ ] Add binary and releases
 - [ ] Add Rust docs
+- [ ] Document
 - [ ] Add workflow to publish crate
+- [ ] Add ignore paths
 - [ ] Clean up `cargo.toml`
 - [ ] Add crosscompile
-- [ ] Add support for html paths in `file` property
 - [ ] In docs workflow install CLI instead of building
-- [ ] Add ignore paths
 - [ ] Clean up code
 - [ ] Fix up errors
-  - Add more info using `format!`
-  - Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
+  - [x] Add more info using `format!`
+- [ ] Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
 - [ ] Add CSS vars for colors ?
 - [ ] Add YAML support for config ?
 - [ ] Add output option ?

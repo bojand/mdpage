@@ -4,7 +4,7 @@ All examples can be viewed on [GitHub](https://github.com/bojand/mdpage).
 
 ### Basic
 
-[Basic example](/examples/basic)
+[Basic example](/mdpage/docs/examples/basic)
 
 No custom configuration.
 
@@ -27,7 +27,7 @@ $ mdpage ./docs/examples/basic
 
 No custom configuration. Demonstrates how different directories are automatically treated as different sections of content.
 
-[Sections example](/examples/sections)
+[Sections example](/mdpage/docs/examples/sections)
 
 Structure:
 
@@ -50,7 +50,7 @@ $ mdpage ./docs/examples/sections
 
 ### Full page
 
-[Full page example](/examples/full_page)
+[Full page example](/mdpage/docs/examples/full_page)
 
 Using command line to specify custom title, subtitle, and full page options.
 Automatically injects footer because we have `footer.md`.
@@ -80,7 +80,7 @@ $ mdpage ./docs/examples/full_page --full-page --title "Full Page" --subtitle "F
 
 Customized build using `mdpage.json` file. Specifies script and style links to add [highlight.js](https://highlightjs.org/) support. Specifies content to control order of menu items and sections, and to add external links.
 
-[Config example](/examples/config)
+[Config example](/mdpage/docs/examples/config)
 
 Structure:
 
@@ -114,9 +114,9 @@ Structure:
 ├── install.md
 ├── usage.md
 ├── TODO.md
-├── mdpage.json
+├── mdpage.toml
 ├── static
-│  ├── android-chrome-192x192.png
+│  ├── logo-192x192.png
 │  └── favicon.ico
 ├── examples
    ├── basic
