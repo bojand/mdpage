@@ -95,6 +95,18 @@
             {{~ /each ~}}
         </div>
 
+        {{! No content we still want main }}
+        
+        {{~ else ~}}
+        
+        {{~ #if (and main main.html) ~}}
+        <div class="column">
+            <div id="doc-section-main">
+                {{{ main.html }}}
+            </div>
+        </div>
+        {{~ /if ~}}
+
         {{~ /if ~}}
 
     </div>

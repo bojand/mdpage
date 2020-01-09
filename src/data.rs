@@ -271,10 +271,8 @@ fn init_entry_contents(
 
             if is_ext(&entry_path, "md") {
                 let mut c = Content::default();
-                println!("!!! entry_path: {:?}", entry_path);
                 c.file = Some(entry_path);
                 c.init_from_file(root);
-                println!("!!! initialized: {:?}", c);
                 let mut ct = ContentType::Normal;
 
                 let is_index = check_type && is_index_file(&entry);
@@ -385,6 +383,16 @@ mod tests {
         assert!(data.init(&root).is_ok());
         expected_file =
             File::open("tests/fixtures/data/init_expected3.json").expect("could not open file");
+        reader = BufReader::new(expected_file);
+        expected = serde_json::from_reader(reader).expect("could not read expected data");
+        assert_eq!(data, expected);
+
+        // just single index
+        root = PathBuf::from("tests/fixtures/data/single");
+        data = Data::default();
+        assert!(data.init(&root).is_ok());
+        expected_file =
+            File::open("tests/fixtures/data/init_expected_single.json").expect("could not open file");
         reader = BufReader::new(expected_file);
         expected = serde_json::from_reader(reader).expect("could not read expected data");
         assert_eq!(data, expected);

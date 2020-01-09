@@ -1,0 +1,9 @@
+{
+    "full_page": false,
+    "title": "Single doc",
+    "main": {
+        "label": "Single doc",
+        "file": "tests/fixtures/data/single/readme.md"
+    },
+    "contents": []
+}
