@@ -25,6 +25,7 @@
 - [X] Fix local hrefs (Not possible? / needed)
 - [x] Add builds and GitHub workflows
 - [ ] Add support for html paths in `file` property
+- [ ] Add test for single file
 - [ ] Add dir to content
 - [ ] Add binary and releases
 - [ ] Add Rust docs
