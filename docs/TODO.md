@@ -31,17 +31,17 @@
 - [ ] Add Rust docs
 - [ ] Document
 - [ ] Add workflow to publish crate
-- [ ] Add ignore paths
 - [ ] Clean up `cargo.toml`
 - [ ] Add crosscompile
 - [ ] In docs workflow install CLI instead of building
 - [ ] Clean up code
+- [ ] Add output option 
+- [ ] Add ignore paths
 - [ ] Fix up errors
   - [x] Add more info using `format!`
 - [ ] Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
 - [ ] Add CSS vars for colors ?
 - [ ] Add YAML support for config ?
-- [ ] Add output option ?
 - [ ] Add single meta portion ?
 - [ ] Add dark mode CSS and slider ?
   - https://css-tricks.com/dark-modes-with-css/

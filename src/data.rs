@@ -391,8 +391,8 @@ mod tests {
         root = PathBuf::from("tests/fixtures/data/single");
         data = Data::default();
         assert!(data.init(&root).is_ok());
-        expected_file =
-            File::open("tests/fixtures/data/init_expected_single.json").expect("could not open file");
+        expected_file = File::open("tests/fixtures/data/init_expected_single.json")
+            .expect("could not open file");
         reader = BufReader::new(expected_file);
         expected = serde_json::from_reader(reader).expect("could not read expected data");
         assert_eq!(data, expected);
