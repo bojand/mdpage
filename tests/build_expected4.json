@@ -27,6 +27,27 @@
         },
         {
             "is_break": false,
+            "label": "dir1",
+            "is_heading": true
+        },
+        {
+            "label": "Page 1",
+            "file": "tests/fixtures/data/dir1/page1.md",
+            "markdown": "# Page 1\n\nContent for page 1.",
+            "html": "<h1>Page 1</h1>\n<p>Content for page 1.</p>\n"
+        },
+        {
+            "label": "Page 2",
+            "file": "tests/fixtures/data/dir1/page2.md",
+            "markdown": "# Page 2\n\nContent for page 2.",
+            "html": "<h1>Page 2</h1>\n<p>Content for page 2.</p>\n"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
+        },
+        {
+            "is_break": false,
             "label": "dir2",
             "is_heading": true
         },
@@ -60,20 +81,14 @@
         },
         {
             "is_break": false,
-            "label": "dir1",
+            "label": "single",
             "is_heading": true
         },
         {
-            "label": "Page 1",
-            "file": "tests/fixtures/data/dir1/page1.md",
-            "markdown": "# Page 1\n\nContent for page 1.",
-            "html": "<h1>Page 1</h1>\n<p>Content for page 1.</p>\n"
-        },
-        {
-            "label": "Page 2",
-            "file": "tests/fixtures/data/dir1/page2.md",
-            "markdown": "# Page 2\n\nContent for page 2.",
-            "html": "<h1>Page 2</h1>\n<p>Content for page 2.</p>\n"
+            "label": "Single doc",
+            "file": "tests/fixtures/data/single/readme.md",
+            "markdown": "# Single doc\n\nJust a single page.",
+            "html": "<h1>Single doc</h1>\n<p>Just a single page.</p>\n"
         },
         {
             "is_heading": false,

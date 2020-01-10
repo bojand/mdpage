@@ -51,5 +51,13 @@ fn test_data_build() -> Result<(), Box<dyn std::error::Error>> {
     expected = serde_json::from_reader(reader)?;
     assert_eq!(data, expected);
 
+    // just single index
+    root = PathBuf::from("tests/fixtures/data/single");
+    data = mdpage::build(&root, None)?;
+    expected_file = File::open("tests/build_expected_single.json")?;
+    reader = BufReader::new(expected_file);
+    expected = serde_json::from_reader(reader)?;
+    assert_eq!(data, expected);
+
     Ok(())
 }

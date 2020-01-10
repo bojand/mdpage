@@ -85,11 +85,21 @@
             {{~ /each ~}}
         </div>
 
+        {{! No content we still want main }}
+        
+        {{~ else ~}}
+        
+        {{~ #if (and main main.html) ~}}
+        <div class="column">
+            <div id="doc-section-main">
+                {{{ main.html }}}
+            </div>
+        </div>
         {{~ /if ~}}
 
+        {{~ /if ~}}
     </div>
 </div>
-
 <div class="container">
     <hr>
 </div>
@@ -104,11 +114,9 @@
 
 <script>
     var items = {{ array_length contents }};
-
     function switchToSection(i) {
         removeActive();
         hideAll();
-
         if (i >= 0) {
             setActive(i)
             setVisible(i)
@@ -116,39 +124,37 @@
             $("#doc-section-main").removeClass("is-hidden")
         }
     }
-
     function setActive(i) {
         var id = "#menu-" + i
         $(id).addClass("is-active")
     }
-
     function setVisible(i) {
         var id = "#doc-section-" + i
         $(id).removeClass("is-hidden")
     }
-
     function removeActive() {
         for (var i = 0; i < items; i++) {
             var id = "#menu-" + i
             $(id).removeClass("is-active")
         }
     }
-
     function hideAll() {
         for (var i = 0; i < items; i++) {
             var id = "#doc-section-" + i
             $(id).addClass("is-hidden")
         }
-
         $("#doc-section-main").addClass("is-hidden")
     }
 </script>
 <script>
     (function () {
+        {{~ #if (and main main.html) ~}}
         switchToSection(-1)
+        {{~ else ~}}
+        switchToSection(0)
+        {{~ /if ~}}
     })()
 </script>
-
 {{~ #if script ~}}
 <script>
     {{{ script }}}

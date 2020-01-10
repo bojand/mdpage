@@ -133,57 +133,62 @@ impl Data {
 
         paths = fs::read_dir(root)?;
 
-        let mut sections = paths
+        let mut dirs = paths
             .filter_map(|p| {
                 if let Ok(entry) = p {
                     if let Ok(file_type) = entry.file_type() {
                         if file_type.is_dir() {
-                            let entries =
-                                fs::read_dir(entry.path().as_path()).expect("could not read dir");
-
-                            let mut dirres = entries
-                                .filter_map(|de| {
-                                    if let Ok(dentry) = de {
-                                        if let Ok(de_file_type) = dentry.file_type() {
-                                            if de_file_type.is_file() {
-                                                return init_entry_contents(root, dentry, false)
-                                                    .map(|(c, _)| vec![c]);
-                                            }
-                                        }
-                                    }
-                                    None
-                                })
-                                .flatten()
-                                .collect::<Vec<Content>>();
-
-                            if !dirres.is_empty() {
-                                let title = build_title_for_dir(
-                                    entry.path().as_path(),
-                                    fs::read_dir(entry.path()).expect("could not read dir"),
-                                    false,
-                                )
-                                .unwrap_or_else(|_| {
-                                    panic!(
-                                        "could not get title from path: {}",
-                                        entry.path().display()
-                                    )
-                                });
-                                let heading = Content::new_heading(title);
-
-                                dirres.sort_by(|a, b| a.file.cmp(&b.file));
-
-                                dirres.insert(0, heading);
-
-                                let end = Content::new_break();
-
-                                dirres.push(end);
-
-                                return Some(dirres);
-                            } else {
-                                return None;
-                            }
+                            return Some(entry.path());
                         }
                     }
+                }
+
+                None
+            })
+            .collect::<Vec<PathBuf>>();
+
+        dirs.sort();
+
+        let mut sections = dirs
+            .into_iter()
+            .filter_map(|path| {
+                let entries = fs::read_dir(path.as_path()).expect("could not read dir");
+
+                let mut dirres = entries
+                    .filter_map(|de| {
+                        if let Ok(dentry) = de {
+                            if let Ok(de_file_type) = dentry.file_type() {
+                                if de_file_type.is_file() {
+                                    return init_entry_contents(root, dentry, false)
+                                        .map(|(c, _)| vec![c]);
+                                }
+                            }
+                        }
+                        None
+                    })
+                    .flatten()
+                    .collect::<Vec<Content>>();
+
+                if !dirres.is_empty() {
+                    let title = build_title_for_dir(
+                        path.as_path(),
+                        fs::read_dir(&path).expect("could not read dir"),
+                        false,
+                    )
+                    .unwrap_or_else(|_| {
+                        panic!("could not get title from path: {}", path.display())
+                    });
+                    let heading = Content::new_heading(title);
+
+                    dirres.sort_by(|a, b| a.file.cmp(&b.file));
+
+                    dirres.insert(0, heading);
+
+                    let end = Content::new_break();
+
+                    dirres.push(end);
+
+                    return Some(dirres);
                 }
                 None
             })
@@ -378,6 +383,16 @@ mod tests {
         assert!(data.init(&root).is_ok());
         expected_file =
             File::open("tests/fixtures/data/init_expected3.json").expect("could not open file");
+        reader = BufReader::new(expected_file);
+        expected = serde_json::from_reader(reader).expect("could not read expected data");
+        assert_eq!(data, expected);
+
+        // just single index
+        root = PathBuf::from("tests/fixtures/data/single");
+        data = Data::default();
+        assert!(data.init(&root).is_ok());
+        expected_file = File::open("tests/fixtures/data/init_expected_single.json")
+            .expect("could not open file");
         reader = BufReader::new(expected_file);
         expected = serde_json::from_reader(reader).expect("could not read expected data");
         assert_eq!(data, expected);

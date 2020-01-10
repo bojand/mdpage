@@ -20,6 +20,23 @@
         },
         {
             "is_break": false,
+            "label": "dir1",
+            "is_heading": true
+        },
+        {
+            "label": "Page 1",
+            "file": "tests/fixtures/data/dir1/page1.md"
+        },
+        {
+            "label": "Page 2",
+            "file": "tests/fixtures/data/dir1/page2.md"
+        },
+        {
+            "is_heading": false,
+            "is_break": true
+        },
+        {
+            "is_break": false,
             "label": "dir2",
             "is_heading": true
         },
@@ -45,16 +62,12 @@
         },
         {
             "is_break": false,
-            "label": "dir1",
+            "label": "single",
             "is_heading": true
         },
         {
-            "label": "Page 1",
-            "file": "tests/fixtures/data/dir1/page1.md"
-        },
-        {
-            "label": "Page 2",
-            "file": "tests/fixtures/data/dir1/page2.md"
+            "label": "Single doc",
+            "file": "tests/fixtures/data/single/readme.md"
         },
         {
             "is_heading": false,
