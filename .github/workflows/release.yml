@@ -15,16 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install hub
-    run: ci/install-hub.sh ${{ matrix.os }}
-    shell: bash
+      run: ci/install-hub.sh ${{ matrix.os }}
+      shell: bash
     - name: Install Rustup
-    run: ci/install-rustup.sh stable
-    shell: bash
+      run: ci/install-rustup.sh stable
+      shell: bash
     - name: Install Rust
-    run: ci/install-rust.sh stable
-    shell: bash
+      run: ci/install-rust.sh stable
+      shell: bash
     - name: Build and deploy artifacts
-    env:
+      env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    run: ci/make-release.sh ${{ matrix.os }}
-    shell: bash
+      run: ci/make-release.sh ${{ matrix.os }}
+      shell: bash
