@@ -9,6 +9,7 @@ on:
     - '*.md'
     - '.github/**'
     - 'assets/**'
+    - 'ci/**'
   pull_request:
     branches:
     - master
@@ -17,6 +18,7 @@ on:
     - '*.md'
     - '.github/**'
     - 'assets/**'
+    - 'ci/**'
 
 jobs:
   build:
