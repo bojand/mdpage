@@ -6,7 +6,18 @@ on:
       - v*
 
 jobs:
+  create:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install hub
+      run: ci/install-hub.sh ${{ matrix.os }}
+      shell: bash
+    - name: Create release
+      run: hub release create $GITHUB_REF
+      shell: bash
   release:
+    needs: create
     name: Deploy Release
     runs-on: ${{ matrix.os }}
     strategy:
@@ -23,8 +34,6 @@ jobs:
     - name: Install Rust
       run: ci/install-rust.sh stable
       shell: bash
-    - name: Create release
-      run: hub release create $GITHUB_REF
     - name: Build and deploy artifacts
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
