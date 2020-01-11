@@ -200,8 +200,16 @@ This will create a menu item with label &quot;User's Guide&quot; and the content
     &quot;file&quot;: &quot;guide.md&quot;
 }
 </code></pre>
-<p>A custom header can be created with custom logo using something like this in <code>header.md</code>:</p>
-<pre><code class="language-markdown">&lt;center&gt;
+<p>We can also explicitely use HTML files, which will be included in the result:</p>
+<pre><code class="language-json">{
+    &quot;label&quot;: &quot;HTML content&quot;,
+    &quot;file&quot;: &quot;page.html&quot;
+}
+
+A custom header can be created with custom logo using something like this in `header.md`:
+
+```markdown
+&lt;center&gt;
 &lt;a href=&quot;/&quot;&gt;
 &lt;img src=&quot;static/logo.png&quot; width=&quot;96&quot; height=&quot;96&quot;&gt;
 
@@ -419,8 +427,8 @@ Automatically injects footer because we have <code>footer.md</code>.</p>
 <li><input type="checkbox" disabled="" checked="" /> Add single full page option</li>
 <li><input type="checkbox" disabled="" checked="" /> Fix local hrefs (Not possible? / needed)</li>
 <li><input type="checkbox" disabled="" checked="" /> Add builds and GitHub workflows</li>
-<li><input type="checkbox" disabled="" /> Add support for html paths in <code>file</code> property</li>
-<li><input type="checkbox" disabled="" /> Add test for single file</li>
+<li><input type="checkbox" disabled="" checked="" /> Add support for html paths in <code>file</code> property</li>
+<li><input type="checkbox" disabled="" checked="" /> Add test for single file</li>
 <li><input type="checkbox" disabled="" /> Add dir to content</li>
 <li><input type="checkbox" disabled="" /> Add binary and releases</li>
 <li><input type="checkbox" disabled="" /> Add Rust docs</li>

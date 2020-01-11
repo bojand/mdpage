@@ -30,10 +30,12 @@
                 </a><br><a href="#" id="menu-2" onClick="switchToSection(2)">
                     Page 1
                 </a><br><a href="#" id="menu-3" onClick="switchToSection(3)">
-                    Raw Markdown
+                    HTML Page
                 </a><br><a href="#" id="menu-4" onClick="switchToSection(4)">
+                    Raw Markdown
+                </a><br><a href="#" id="menu-5" onClick="switchToSection(5)">
                     Raw HTML
-                </a><br><br><span>LINKS</span><br><a href="https://github.com" id="menu-external-link-7" )>
+                </a><br><br><span>LINKS</span><br><a href="https://github.com" id="menu-external-link-8" )>
                     External Link
                 </a></p>
         </div>
@@ -123,10 +125,16 @@ fn main() {
 </code></pre>
 
             </div><div id="doc-section-3">
+                <h2>HTML Page</h2>
+
+<p>
+    Just some HTML content.
+</p>
+            </div><div id="doc-section-4">
                 <h2>Raw content</h2>
 <p>We can specify markdown content like this.</p>
 
-            </div><div id="doc-section-4">
+            </div><div id="doc-section-5">
                 <h1>Some HTML Content</h1> <h4>Some content.</h4> <img src="http://placekitten.com/200/200"> <br><br> <p>This is paragraph of raw HTML content.</p> 
             </div></div>
 
@@ -135,7 +143,7 @@ fn main() {
 <div class="container">
     <hr>
 </div><script>
-    var items = 8;
+    var items = 9;
     function switchToSection(i) {
         removeActive();
         hideAll();
