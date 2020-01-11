@@ -6,4 +6,5 @@
 ./target/debug/mdpage ./docs/examples/config
 ./target/debug/mdpage ./docs/examples/single_index --title "Single page" --subtitle "Single main page"
 ./target/debug/mdpage ./docs/examples/single_page --title "Single page" --subtitle "Single content page"
-./target/debug/mdpage ./docs/
+./target/debug/mdpage ./docs/examples/config_dir
+./target/debug/mdpage ./docs

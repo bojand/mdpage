@@ -1,0 +1,20 @@
+{
+    "subtitle": "Dir config example",
+    "contents": [
+        {
+            "dir": "../sections"
+        },
+        {
+            "file": "../config/page1.md"
+        },
+        {
+            "dir": "../basic"
+        },
+        {
+            "file": "../single_index/readme.md"
+        },
+        {
+            "dir": "../single_page"
+        }
+    ]
+}

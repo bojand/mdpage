@@ -1,4 +1,5 @@
 use std::error::Error;
+use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -8,20 +9,44 @@ use comrak::{markdown_to_html, ComrakOptions};
 use derivative::Derivative;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::{get_title_from_file, is_ext};
+use crate::utils::{build_title_for_dir, get_title_from_file, is_ext, is_index_file};
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default, Derivative)]
 #[derivative(PartialEq)]
 pub struct Content {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub is_heading: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub is_break: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub markdown: Option<String>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub html: Option<String>,
 
     #[derivative(PartialEq = "ignore")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub file: Option<PathBuf>,
+
+    #[derivative(PartialEq = "ignore")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dir: Option<PathBuf>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Copy)]
+pub enum ContentType {
+    Normal,
+    Main,
+    Footer,
+    Header,
 }
 
 impl Content {
@@ -30,10 +55,11 @@ impl Content {
             is_heading: Some(false),
             is_break: Some(false),
             label: None,
-            file,
             markdown: None,
             html: None,
             url: None,
+            dir: None,
+            file,
         }
     }
 
@@ -43,6 +69,7 @@ impl Content {
             is_break: Some(false),
             label: Some(label),
             file: None,
+            dir: None,
             markdown: None,
             html: None,
             url: None,
@@ -55,6 +82,7 @@ impl Content {
             is_break: Some(true),
             label: None,
             file: None,
+            dir: None,
             markdown: None,
             html: None,
             url: None,
@@ -151,6 +179,121 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
     }
 
     Ok(())
+}
+
+pub fn init_dir_sections(root: &Path) -> Result<std::vec::Vec<Content>, Box<dyn Error>> {
+    let paths = fs::read_dir(root)?;
+
+    let mut dirs = paths
+        .filter_map(|p| {
+            if let Ok(entry) = p {
+                if let Ok(file_type) = entry.file_type() {
+                    if file_type.is_dir() {
+                        return Some(entry.path());
+                    }
+                }
+            }
+
+            None
+        })
+        .collect::<Vec<PathBuf>>();
+
+    dirs.sort();
+
+    let sections = dirs
+        .into_iter()
+        .filter_map(|path| init_dir_contents(root, &path))
+        .flatten()
+        .collect::<Vec<Content>>();
+
+    Ok(sections)
+}
+
+pub fn init_dir_contents(root: &Path, path: &Path) -> Option<std::vec::Vec<Content>> {
+    let entries = fs::read_dir(path).expect("could not read dir");
+
+    let mut dirres = entries
+        .filter_map(|de| {
+            if let Ok(dentry) = de {
+                if let Ok(de_file_type) = dentry.file_type() {
+                    if de_file_type.is_file() {
+                        return init_entry_contents(root, dentry, false).map(|(c, _)| vec![c]);
+                    }
+                }
+            }
+            None
+        })
+        .flatten()
+        .collect::<Vec<Content>>();
+
+    if !dirres.is_empty() {
+        let title = build_title_for_dir(
+            path,
+            fs::read_dir(&path).expect("could not read dir"),
+            false,
+        )
+        .unwrap_or_else(|_| panic!("could not get title from path: {}", path.display()));
+        let heading = Content::new_heading(title);
+
+        dirres.sort_by(|a, b| a.file.cmp(&b.file));
+
+        dirres.insert(0, heading);
+
+        let end = Content::new_break();
+
+        dirres.push(end);
+
+        return Some(dirres);
+    }
+    None
+}
+
+pub fn init_entry_contents(
+    root: &Path,
+    entry: std::fs::DirEntry,
+    check_type: bool,
+) -> Option<(Content, ContentType)> {
+    if let Ok(file_type) = entry.file_type() {
+        if file_type.is_file() {
+            let entry_path = entry.path();
+
+            if is_ext(&entry_path, "md") {
+                let mut c = Content::default();
+                c.file = Some(entry_path);
+                c.init_from_file(root);
+                let mut ct = ContentType::Normal;
+
+                let is_index = check_type && is_index_file(&entry);
+                let is_footer = check_type
+                    && entry
+                        .path()
+                        .file_stem()
+                        .and_then(|file_stem| file_stem.to_str())
+                        .map(|file_name| file_name.to_lowercase() == "footer")
+                        .unwrap_or_else(|| false);
+                let is_header = check_type
+                    && entry
+                        .path()
+                        .file_stem()
+                        .and_then(|file_stem| file_stem.to_str())
+                        .map(|file_name| file_name.to_lowercase() == "header")
+                        .unwrap_or_else(|| false);
+                if is_index {
+                    ct = ContentType::Main;
+                }
+                if is_footer {
+                    ct = ContentType::Footer;
+                }
+                if is_header {
+                    ct = ContentType::Header;
+                }
+
+                return Some((c, ct));
+            }
+        }
+    }
+
+    None
 }
 
 #[cfg(test)]

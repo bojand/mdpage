@@ -78,21 +78,6 @@
         {
             "is_heading": false,
             "is_break": true
-        },
-        {
-            "is_break": false,
-            "label": "single",
-            "is_heading": true
-        },
-        {
-            "label": "Single doc",
-            "file": "tests/fixtures/data/single/readme.md",
-            "markdown": "# Single doc\n\nJust a single page.",
-            "html": "<h1>Single doc</h1>\n<p>Just a single page.</p>\n"
-        },
-        {
-            "is_heading": false,
-            "is_break": true
         }
     ]
 }

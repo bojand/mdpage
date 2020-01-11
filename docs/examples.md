@@ -97,6 +97,51 @@ Command:
 $ mdpage ./docs/examples/config
 ```
 
+### Single page
+
+Single page examples.
+
+[Just index](examples/single_index)
+
+[Single Page](examples/single_page)
+
+### Dir config
+
+Config using `dir` content property to specify sections.
+
+[Dir example](examples/config_dir)
+
+```
+./docs/examples/config_dir
+├── index.md
+└── mdpage.json
+```
+
+`mdpage.json`"
+
+```json
+{
+    "subtitle": "Dir config example",
+    "contents": [
+        {
+            "dir": "../sections"
+        },
+        {
+            "file": "../config/page1.md"
+        },
+        {
+            "dir": "../basic"
+        },
+        {
+            "file": "../single_index/readme.md"
+        },
+        {
+            "dir": "../single_page"
+        }
+    ]
+}
+```
+
 ### mdPage
 
 This documentation is created using mdPage using a header and footer, and a config file to customize content.

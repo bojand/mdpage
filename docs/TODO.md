@@ -1,6 +1,6 @@
 # TODO
 
-- [x] Add subfolder support to data
+- [x] Add subdirectory support to data
 - [x] Add `is_heading` to content ?
 - [x] Add heading rendering
 - [x] Add scripts
@@ -26,7 +26,7 @@
 - [x] Add builds and GitHub workflows
 - [x] Add support for html paths in `file` property
 - [x] Add test for single file
-- [ ] Add dir to content
+- [x] Add dir to content
 - [ ] Add binary and releases
 - [ ] Add Rust docs
 - [ ] Document

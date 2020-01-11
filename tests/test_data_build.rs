@@ -21,35 +21,35 @@ fn test_data_build() -> Result<(), Box<dyn std::error::Error>> {
     assert_eq!(data, expected);
 
     // with header and footer
-    // root = PathBuf::from("tests/fixtures/data/dir2");
-    // data = mdpage::build(&root, None)?;
-    // expected_file = File::open("tests/build_expected2.json")?;
-    // reader = BufReader::new(expected_file);
-    // expected = serde_json::from_reader(reader)?;
-    // assert_eq!(data, expected);
+    root = PathBuf::from("tests/fixtures/data/dir2");
+    data = mdpage::build(&root, None)?;
+    expected_file = File::open("tests/build_expected2.json")?;
+    reader = BufReader::new(expected_file);
+    expected = serde_json::from_reader(reader)?;
+    assert_eq!(data, expected);
 
-    // // with mdpage.json
-    // root = PathBuf::from("tests/fixtures/data/dir1");
-    // data = mdpage::build(&root, None)?;
-    // expected_file = File::open("tests/build_expected3.json")?;
-    // reader = BufReader::new(expected_file);
-    // expected = serde_json::from_reader(reader)?;
-    // assert_eq!(data, expected);
+    // with mdpage.json
+    root = PathBuf::from("tests/fixtures/data/dir1");
+    data = mdpage::build(&root, None)?;
+    expected_file = File::open("tests/build_expected3.json")?;
+    reader = BufReader::new(expected_file);
+    expected = serde_json::from_reader(reader)?;
+    assert_eq!(data, expected);
 
-    // // with subdirs and initial data
-    // root = PathBuf::from("tests/fixtures/data");
-    // data = mdpage::build(
-    //     &root,
-    //     Some(mdpage::Data {
-    //         subtitle: Some(String::from("Custom subtitle")),
-    //         full_page: Some(true),
-    //         ..mdpage::Data::default()
-    //     }),
-    // )?;
-    // expected_file = File::open("tests/build_expected4.json")?;
-    // reader = BufReader::new(expected_file);
-    // expected = serde_json::from_reader(reader)?;
-    // assert_eq!(data, expected);
+    // with subdirs and initial data
+    root = PathBuf::from("tests/fixtures/data");
+    data = mdpage::build(
+        &root,
+        Some(mdpage::Data {
+            subtitle: Some(String::from("Custom subtitle")),
+            full_page: Some(true),
+            ..mdpage::Data::default()
+        }),
+    )?;
+    expected_file = File::open("tests/build_expected4.json")?;
+    reader = BufReader::new(expected_file);
+    expected = serde_json::from_reader(reader)?;
+    assert_eq!(data, expected);
 
     // single index
     root = PathBuf::from("docs/examples/single_index");
@@ -71,6 +71,14 @@ fn test_data_build() -> Result<(), Box<dyn std::error::Error>> {
     root = PathBuf::from("tests/fixtures/data/html");
     data = mdpage::build(&root, None)?;
     expected_file = File::open("tests/build_expected_html.json")?;
+    reader = BufReader::new(expected_file);
+    expected = serde_json::from_reader(reader)?;
+    assert_eq!(data, expected);
+
+    // dir test
+    root = PathBuf::from("docs/examples/config_dir");
+    data = mdpage::build(&root, None)?;
+    expected_file = File::open("tests/build_expected_dir.json")?;
     reader = BufReader::new(expected_file);
     expected = serde_json::from_reader(reader)?;
     assert_eq!(data, expected);

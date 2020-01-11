@@ -9,4 +9,4 @@
 
 Indeed this very documentation is generated using `mdpage` tool with some minor configuration and serves as an example of generated output.
 
-The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and first-level subfolders). The tool has _some_ opinions on structure and patterns used, and has limited configuration and customization options. It purposefully lacks in features, to let you focus on creating the content and not waste time on style or format of the output.
+The basic goal is simply to generate a self-contained single page HTML file for all documentation in a folder (and immediate subdirectories). The tool has _some_ opinions on structure and patterns used, and has limited configuration and customization options. It purposefully lacks in features, to let you focus on creating the content and not waste time on style or format of the output.

@@ -13,8 +13,10 @@ use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 
-use crate::content::Content;
-use crate::utils::{build_title_for_dir, is_ext, is_index_file};
+use crate::content::{
+    init_dir_contents, init_dir_sections, init_entry_contents, Content, ContentType,
+};
+use crate::utils::{build_title_for_dir, is_ext};
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Data {
@@ -38,14 +40,6 @@ pub struct Link {
     pub src: Option<String>,
     pub integrity: Option<String>,
     pub crossorigin: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-enum ContentType {
-    Normal,
-    Main,
-    Footer,
-    Header,
 }
 
 impl Default for Data {
@@ -93,11 +87,11 @@ impl Data {
             self.footer.as_mut().unwrap().init_from_file(root);
         }
 
-        let mut paths = fs::read_dir(root)?;
-
         let mut main = None;
         let mut header = None;
         let mut footer = None;
+
+        let paths = fs::read_dir(root)?;
 
         let mut res = paths
             .filter_map(|p| {
@@ -131,69 +125,7 @@ impl Data {
 
         res.sort_by(|a, b| a.file.cmp(&b.file));
 
-        paths = fs::read_dir(root)?;
-
-        let mut dirs = paths
-            .filter_map(|p| {
-                if let Ok(entry) = p {
-                    if let Ok(file_type) = entry.file_type() {
-                        if file_type.is_dir() {
-                            return Some(entry.path());
-                        }
-                    }
-                }
-
-                None
-            })
-            .collect::<Vec<PathBuf>>();
-
-        dirs.sort();
-
-        let mut sections = dirs
-            .into_iter()
-            .filter_map(|path| {
-                let entries = fs::read_dir(path.as_path()).expect("could not read dir");
-
-                let mut dirres = entries
-                    .filter_map(|de| {
-                        if let Ok(dentry) = de {
-                            if let Ok(de_file_type) = dentry.file_type() {
-                                if de_file_type.is_file() {
-                                    return init_entry_contents(root, dentry, false)
-                                        .map(|(c, _)| vec![c]);
-                                }
-                            }
-                        }
-                        None
-                    })
-                    .flatten()
-                    .collect::<Vec<Content>>();
-
-                if !dirres.is_empty() {
-                    let title = build_title_for_dir(
-                        path.as_path(),
-                        fs::read_dir(&path).expect("could not read dir"),
-                        false,
-                    )
-                    .unwrap_or_else(|_| {
-                        panic!("could not get title from path: {}", path.display())
-                    });
-                    let heading = Content::new_heading(title);
-
-                    dirres.sort_by(|a, b| a.file.cmp(&b.file));
-
-                    dirres.insert(0, heading);
-
-                    let end = Content::new_break();
-
-                    dirres.push(end);
-
-                    return Some(dirres);
-                }
-                None
-            })
-            .flatten()
-            .collect::<Vec<Content>>();
+        let mut sections = init_dir_sections(root)?;
 
         if !res.is_empty() {
             res.push(Content::new_break());
@@ -221,7 +153,57 @@ impl Data {
 
     fn build_contents(&mut self, root: &Path) -> Result<(), Box<dyn Error>> {
         if self.contents.is_some() {
-            let contents = self.contents.as_mut().unwrap();
+            let mut contents = self.contents.as_mut().unwrap();
+
+            let has_dir = contents.iter().any(|c| c.dir.is_some());
+            if has_dir {
+                let mut expanded_contents = Vec::new();
+                let mut index = 0;
+                while index < contents.len() {
+                    // fix dir entries
+                    if contents[index].dir.is_some() {
+                        let mut pathbuf = contents[index].dir.clone().unwrap();
+
+                        if root.has_root() && pathbuf.is_relative() {
+                            pathbuf = root.join(&pathbuf).canonicalize().unwrap_or_else(|_| {
+                                panic!(
+                                    "could not resolve path. root: {} path: {}",
+                                    root.display(),
+                                    pathbuf.display()
+                                )
+                            });
+                        }
+
+                        if pathbuf.is_dir() {
+                            let mut dir_contents = Vec::new();
+
+                            // get the base files
+                            if let Some(mut root_dir_contents) = init_dir_contents(root, &pathbuf) {
+                                dir_contents.append(&mut root_dir_contents);
+                            }
+
+                            // do subdirs
+                            let mut sub_dir_contents = init_dir_sections(&pathbuf)?;
+                            dir_contents.append(&mut sub_dir_contents);
+
+                            // add into the overall
+                            let mut di = 0;
+                            while di < dir_contents.len() {
+                                expanded_contents.push(dir_contents[di].clone());
+                                di += 1;
+                            }
+                        }
+                    } else {
+                        expanded_contents.push(contents[index].clone());
+                    }
+
+                    index += 1;
+                }
+
+                self.contents = Some(expanded_contents);
+            }
+
+            contents = self.contents.as_mut().unwrap();
 
             for c in contents {
                 crate::content::fill_content(c, root)?;
@@ -258,54 +240,6 @@ fn config_file(root: &Path) -> Option<PathBuf> {
             None
         }
     }
-}
-
-fn init_entry_contents(
-    root: &Path,
-    entry: std::fs::DirEntry,
-    check_type: bool,
-) -> Option<(Content, ContentType)> {
-    if let Ok(file_type) = entry.file_type() {
-        if file_type.is_file() {
-            let entry_path = entry.path();
-
-            if is_ext(&entry_path, "md") {
-                let mut c = Content::default();
-                c.file = Some(entry_path);
-                c.init_from_file(root);
-                let mut ct = ContentType::Normal;
-
-                let is_index = check_type && is_index_file(&entry);
-                let is_footer = check_type
-                    && entry
-                        .path()
-                        .file_stem()
-                        .and_then(|file_stem| file_stem.to_str())
-                        .map(|file_name| file_name.to_lowercase() == "footer")
-                        .unwrap_or_else(|| false);
-                let is_header = check_type
-                    && entry
-                        .path()
-                        .file_stem()
-                        .and_then(|file_stem| file_stem.to_str())
-                        .map(|file_name| file_name.to_lowercase() == "header")
-                        .unwrap_or_else(|| false);
-                if is_index {
-                    ct = ContentType::Main;
-                }
-                if is_footer {
-                    ct = ContentType::Footer;
-                }
-                if is_header {
-                    ct = ContentType::Header;
-                }
-
-                return Some((c, ct));
-            }
-        }
-    }
-
-    None
 }
 
 pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn Error>> {
