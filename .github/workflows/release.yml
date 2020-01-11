@@ -10,6 +10,7 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
     - name: Install hub
       run: |
         curl -LsSf https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz -o hub.tgz
@@ -18,7 +19,7 @@ jobs:
         echo "##[add-path]$PWD/hub/bin"
       shell: bash
     - name: Create release
-      run: hub release create $GITHUB_REF
+      run: hub release create ${GITHUB_REF}
       shell: bash
   release:
     needs: create
