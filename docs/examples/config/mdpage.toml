@@ -31,6 +31,10 @@ file = "page1.md"
 file = "page1.md"
 
 [[contents]]
+label = "HTML Page"
+file = "page.html"
+
+[[contents]]
 label = "Raw Markdown"
 markdown = """
 ## Raw content\n\n \

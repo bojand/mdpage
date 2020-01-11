@@ -1,6 +1,6 @@
 {
     "title": "mdPage test",
-    "dubtitle": "subtitle test",
+    "subtitle": "subtitle test",
     "full_page": true,
     "author": "Bojan D.",
     "icon": "favicon.ico",

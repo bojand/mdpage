@@ -24,8 +24,8 @@
 - [x] Add single full page option 
 - [X] Fix local hrefs (Not possible? / needed)
 - [x] Add builds and GitHub workflows
-- [ ] Add support for html paths in `file` property
-- [ ] Add test for single file
+- [x] Add support for html paths in `file` property
+- [x] Add test for single file
 - [ ] Add dir to content
 - [ ] Add binary and releases
 - [ ] Add Rust docs

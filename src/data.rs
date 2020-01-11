@@ -388,7 +388,7 @@ mod tests {
         assert_eq!(data, expected);
 
         // just single index
-        root = PathBuf::from("tests/fixtures/data/single");
+        root = PathBuf::from("docs/examples/single_index");
         data = Data::default();
         assert!(data.init(&root).is_ok());
         expected_file = File::open("tests/fixtures/data/init_expected_single.json")

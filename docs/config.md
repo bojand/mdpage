@@ -75,6 +75,14 @@ This will create a menu item with label "User's Guide" and the content for that 
 }
 ```
 
+We can also explicitely use HTML files, which will be included in the result:
+
+```json
+{
+    "label": "HTML content",
+    "file": "page.html"
+}
+
 A custom header can be created with custom logo using something like this in `header.md`:
 
 ```markdown

@@ -86,10 +86,10 @@ pub fn is_index_file(entry: &std::fs::DirEntry) -> bool {
         if file_type.is_file() {
             return entry
                 .path()
-                .file_stem()
-                .and_then(|file_stem| file_stem.to_str())
+                .file_name()
+                .and_then(|file_name| file_name.to_str())
                 .map(|file_name| file_name.to_lowercase())
-                .map(|file_name| file_name == "index" || file_name == "readme")
+                .map(|file_name| file_name == "index.md" || file_name == "readme.md")
                 .unwrap_or_else(|| false);
         }
     }
@@ -206,6 +206,22 @@ mod tests {
         assert_eq!(
             build_title_for_dir(&root, fs::read_dir(&root).unwrap(), true).unwrap(),
             "Main page"
+        );
+
+        root = PathBuf::from("docs/examples/single_index");
+        assert_eq!(
+            build_title_for_dir(&root, fs::read_dir(&root).unwrap(), true).unwrap(),
+            "Single doc"
+        );
+        assert_eq!(
+            build_title_for_dir(&root, fs::read_dir(&root).unwrap(), false).unwrap(),
+            "single_index"
+        );
+
+        root = PathBuf::from("docs/examples/single_page");
+        assert_eq!(
+            build_title_for_dir(&root, fs::read_dir(&root).unwrap(), true).unwrap(),
+            "single_page"
         );
     }
 

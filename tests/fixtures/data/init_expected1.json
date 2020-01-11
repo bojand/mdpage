@@ -59,19 +59,6 @@
         {
             "is_heading": false,
             "is_break": true
-        },
-        {
-            "is_break": false,
-            "label": "single",
-            "is_heading": true
-        },
-        {
-            "label": "Single doc",
-            "file": "tests/fixtures/data/single/readme.md"
-        },
-        {
-            "is_heading": false,
-            "is_break": true
         }
     ]
 }

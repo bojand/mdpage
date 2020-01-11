@@ -1,0 +1,9 @@
+{
+    "title": "html test",
+    "subtitle": "html subtitle",
+    "contents": [{
+        "label": "page",
+        "file": "page.html",
+        "html":"<h2>HTML Page</h2>\n\n<p>\n    Just some HTML content.\n</p>"
+    }]
+}
