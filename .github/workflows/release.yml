@@ -10,6 +10,7 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
     - name: Install hub
       run: ci/install-hub.sh ${{ matrix.os }}
       shell: bash
