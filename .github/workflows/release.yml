@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install hub
-      run: ci/install-hub.sh ${{ matrix.os }}
+      run: ci/install-hub.sh ${{ runner.os }}
       shell: bash
     - name: Create release
       run: hub release create $GITHUB_REF
