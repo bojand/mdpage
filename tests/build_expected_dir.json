@@ -1,126 +1,131 @@
 {
-    "full_page": null,
-    "title": "config_dir",
-    "subtitle": null,
-    "author": null,
-    "icon": null,
-    "main": null,
-    "contents": [
-      {
-        "is_heading": true,
-        "is_break": false,
-        "label": "sections"
-      },
-      {
-        "label": "Sections Example",
-        "markdown": "# Sections Example\n\nThis example demonstrates automat handling of \"sections\". Each folder gets its own section in the menu!",
-        "html": "<h1>Sections Example</h1>\n<p>This example demonstrates automat handling of &quot;sections&quot;. Each folder gets its own section in the menu!</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/sections/index.md"
-      },
-      {
-        "is_heading": false,
-        "is_break": true
-      },
-      {
-        "is_heading": true,
-        "is_break": false,
-        "label": "guide"
-      },
-      {
-        "label": "Installation",
-        "markdown": "# Installation\n\nJust some installation instructions.",
-        "html": "<h1>Installation</h1>\n<p>Just some installation instructions.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/sections/guide/install.md"
-      },
-      {
-        "label": "User's Guide",
-        "markdown": "# User's Guide\n\nJust a user's guide.",
-        "html": "<h1>User's Guide</h1>\n<p>Just a user's guide.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/sections/guide/readme.md"
-      },
-      {
-        "is_heading": false,
-        "is_break": true
-      },
-      {
-        "is_heading": true,
-        "is_break": false,
-        "label": "reference"
-      },
-      {
-        "label": "API",
-        "markdown": "# API\n\nThis may be some API reference.",
-        "html": "<h1>API</h1>\n<p>This may be some API reference.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/sections/reference/api.md"
-      },
-      {
-        "label": "Configuration",
-        "markdown": "# Configuration\n\nThis may be some configuration reference",
-        "html": "<h1>Configuration</h1>\n<p>This may be some configuration reference</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/sections/reference/config.md"
-      },
-      {
-        "is_heading": false,
-        "is_break": true
-      },
-      {
-        "label": "Page 1",
-        "markdown": "# Page 1\n\nPage 1 content.\n\nIf the `\"label\"` property **is not** set in the config file it will be infered from the heading of the content within this file.\n\nWe only bring in `TOML` language support so the following `Rust` code is not highlighted:\n\n```rust\n#[derive(Debug)]\nstruct Person<'a> {\n    name: &'a str,\n    age: u8\n}\n\nfn main() {\n    let name = \"Peter\";\n    let age = 27;\n    let peter = Person { name, age };\n\n    // Pretty print\n    println!(\"{:#?}\", peter);\n}\n\n```",
-        "html": "<h1>Page 1</h1>\n<p>Page 1 content.</p>\n<p>If the <code>&quot;label&quot;</code> property <strong>is not</strong> set in the config file it will be infered from the heading of the content within this file.</p>\n<p>We only bring in <code>TOML</code> language support so the following <code>Rust</code> code is not highlighted:</p>\n<pre><code class=\"language-rust\">#[derive(Debug)]\nstruct Person&lt;'a&gt; {\n    name: &amp;'a str,\n    age: u8\n}\n\nfn main() {\n    let name = &quot;Peter&quot;;\n    let age = 27;\n    let peter = Person { name, age };\n\n    // Pretty print\n    println!(&quot;{:#?}&quot;, peter);\n}\n\n</code></pre>\n",
-        "file": "../config/page1.md"
-      },
-      {
-        "is_heading": true,
-        "is_break": false,
-        "label": "basic"
-      },
-      {
-        "label": "Page 1",
-        "markdown": "# Page 1\n\nPage 1 content.",
-        "html": "<h1>Page 1</h1>\n<p>Page 1 content.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/basic/page1.md"
-      },
-      {
-        "label": "Page 2",
-        "markdown": "# Page 2\n\nPage 2 content.",
-        "html": "<h1>Page 2</h1>\n<p>Page 2 content.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/basic/page2.md"
-      },
-      {
-        "label": "Main page",
-        "markdown": "# Main page\n\nThis is the main page.",
-        "html": "<h1>Main page</h1>\n<p>This is the main page.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/basic/readme.md"
-      },
-      {
-        "is_heading": false,
-        "is_break": true
-      },
-      {
-        "label": "Single doc",
-        "markdown": "# Single doc\n\nJust a single page.",
-        "html": "<h1>Single doc</h1>\n<p>Just a single page.</p>\n",
-        "file": "../single_index/readme.md"
-      },
-      {
-        "is_heading": true,
-        "is_break": false,
-        "label": "single_page"
-      },
-      {
-        "label": "Single doc",
-        "markdown": "# Single doc\n\nJust a single page.",
-        "html": "<h1>Single doc</h1>\n<p>Just a single page.</p>\n",
-        "file": "/Users/bdjurkovic/dev/rust/mdpage/docs/examples/single_page/single.md"
-      },
-      {
-        "is_heading": false,
-        "is_break": true
-      }
-    ],
-    "script": null,
-    "style": null,
-    "links": null,
-    "header": null,
-    "footer": null
-  }
+  "full_page": null,
+  "title": "Dir config",
+  "subtitle": "Dir config example",
+  "author": null,
+  "icon": null,
+  "main": {
+    "label": "Dir config",
+    "file": "docs/examples/sections/readme.md",
+    "markdown": "# Dir config\n\nExample of how to set all the contents using `dir` property.",
+    "html": "<h1>Dir config</h1>\n<p>Example of how to set all the contents using <code>dir</code> property.</p>\n"
+  },
+  "contents": [
+    {
+      "is_heading": true,
+      "is_break": false,
+      "label": "sections"
+    },
+    {
+      "label": "Sections Example",
+      "markdown": "# Sections Example\n\nThis example demonstrates automat handling of \"sections\". Each folder gets its own section in the menu!",
+      "html": "<h1>Sections Example</h1>\n<p>This example demonstrates automat handling of &quot;sections&quot;. Each folder gets its own section in the menu!</p>\n",
+      "file": "docs/examples/sections/index.md"
+    },
+    {
+      "is_heading": false,
+      "is_break": true
+    },
+    {
+      "is_heading": true,
+      "is_break": false,
+      "label": "guide"
+    },
+    {
+      "label": "Installation",
+      "markdown": "# Installation\n\nJust some installation instructions.",
+      "html": "<h1>Installation</h1>\n<p>Just some installation instructions.</p>\n",
+      "file": "docs/examples/sections/guide/install.md"
+    },
+    {
+      "label": "User's Guide",
+      "markdown": "# User's Guide\n\nJust a user's guide.",
+      "html": "<h1>User's Guide</h1>\n<p>Just a user's guide.</p>\n",
+      "file": "docs/examples/sections/guide/readme.md"
+    },
+    {
+      "is_heading": false,
+      "is_break": true
+    },
+    {
+      "is_heading": true,
+      "is_break": false,
+      "label": "reference"
+    },
+    {
+      "label": "API",
+      "markdown": "# API\n\nThis may be some API reference.",
+      "html": "<h1>API</h1>\n<p>This may be some API reference.</p>\n",
+      "file": "docs/examples/sections/reference/api.md"
+    },
+    {
+      "label": "Configuration",
+      "markdown": "# Configuration\n\nThis may be some configuration reference",
+      "html": "<h1>Configuration</h1>\n<p>This may be some configuration reference</p>\n",
+      "file": "docs/examples/sections/reference/config.md"
+    },
+    {
+      "is_heading": false,
+      "is_break": true
+    },
+    {
+      "label": "Page 1",
+      "markdown": "# Page 1\n\nPage 1 content.\n\nIf the `\"label\"` property **is not** set in the config file it will be infered from the heading of the content within this file.\n\nWe only bring in `TOML` language support so the following `Rust` code is not highlighted:\n\n```rust\n#[derive(Debug)]\nstruct Person<'a> {\n    name: &'a str,\n    age: u8\n}\n\nfn main() {\n    let name = \"Peter\";\n    let age = 27;\n    let peter = Person { name, age };\n\n    // Pretty print\n    println!(\"{:#?}\", peter);\n}\n\n```",
+      "html": "<h1>Page 1</h1>\n<p>Page 1 content.</p>\n<p>If the <code>&quot;label&quot;</code> property <strong>is not</strong> set in the config file it will be infered from the heading of the content within this file.</p>\n<p>We only bring in <code>TOML</code> language support so the following <code>Rust</code> code is not highlighted:</p>\n<pre><code class=\"language-rust\">#[derive(Debug)]\nstruct Person&lt;'a&gt; {\n    name: &amp;'a str,\n    age: u8\n}\n\nfn main() {\n    let name = &quot;Peter&quot;;\n    let age = 27;\n    let peter = Person { name, age };\n\n    // Pretty print\n    println!(&quot;{:#?}&quot;, peter);\n}\n\n</code></pre>\n",
+      "file": "../config/page1.md"
+    },
+    {
+      "is_heading": true,
+      "is_break": false,
+      "label": "basic"
+    },
+    {
+      "label": "Page 1",
+      "markdown": "# Page 1\n\nPage 1 content.",
+      "html": "<h1>Page 1</h1>\n<p>Page 1 content.</p>\n",
+      "file": "docs/examples/basic/page1.md"
+    },
+    {
+      "label": "Page 2",
+      "markdown": "# Page 2\n\nPage 2 content.",
+      "html": "<h1>Page 2</h1>\n<p>Page 2 content.</p>\n",
+      "file": "docs/examples/basic/page2.md"
+    },
+    {
+      "label": "Main page",
+      "markdown": "# Main page\n\nThis is the main page.",
+      "html": "<h1>Main page</h1>\n<p>This is the main page.</p>\n",
+      "file": "docs/examples/basic/readme.md"
+    },
+    {
+      "is_heading": false,
+      "is_break": true
+    },
+    {
+      "label": "Single doc",
+      "markdown": "# Single doc\n\nJust a single page.",
+      "html": "<h1>Single doc</h1>\n<p>Just a single page.</p>\n",
+      "file": "../single_index/readme.md"
+    },
+    {
+      "is_heading": true,
+      "is_break": false,
+      "label": "single_page"
+    },
+    {
+      "label": "Single doc",
+      "markdown": "# Single doc\n\nJust a single page.",
+      "html": "<h1>Single doc</h1>\n<p>Just a single page.</p>\n",
+      "file": "docs/examples/single_page/single.md"
+    },
+    {
+      "is_heading": false,
+      "is_break": true
+    }
+  ],
+  "script": null,
+  "style": null,
+  "links": null,
+  "header": null,
+  "footer": null
+}
