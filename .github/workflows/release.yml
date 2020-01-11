@@ -23,6 +23,8 @@ jobs:
     - name: Install Rust
       run: ci/install-rust.sh stable
       shell: bash
+    - name: Create release
+      run: hub release create $GITHUB_REF
     - name: Build and deploy artifacts
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
