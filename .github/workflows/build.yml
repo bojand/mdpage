@@ -4,21 +4,17 @@ on:
   push:
     branches:
     - master
-    paths-ignore:
-    - 'docs/**'
-    - '*.md'
-    - '.github/**'
-    - 'assets/**'
-    - 'ci/**'
+    paths:
+    - 'Cargo*'
+    - 'src/**'
+    - 'tests/**'
   pull_request:
     branches:
     - master
-    paths-ignore:
-    - 'docs/**'
-    - '*.md'
-    - '.github/**'
-    - 'assets/**'
-    - 'ci/**'
+    paths:
+    - 'Cargo*'
+    - 'src/**'
+    - 'tests/**'
 
 jobs:
   build:
