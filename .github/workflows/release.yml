@@ -66,16 +66,16 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           cd target/${{ matrix.target }}/release
-          strip starship.exe
-          7z a ../../../${{ matrix.name }} starship.exe
+          strip mdpage.exe
+          7z a ../../../${{ matrix.name }} mdpage.exe
           cd -
             
       - name: Prepare build artifacts [-nix]
         if: matrix.os != 'windows-latest'
         run: |
           cd target/${{ matrix.target }}/release
-          strip starship
-          tar czvf ../../../${{ matrix.name }} starship
+          strip mdpage
+          tar czvf ../../../${{ matrix.name }} mdpage
           cd -
 
       - name: Upload build artifact
