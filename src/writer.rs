@@ -34,6 +34,7 @@ pub fn array_length_helper(
     Ok(())
 }
 
+/// Render the data into HTML and write it to the provided writer.
 pub fn write_data(mut writer: impl std::io::Write, data: &Data) -> Result<(), Box<dyn Error>> {
     let mut hb = Handlebars::new();
 

@@ -1,4 +1,5 @@
-#![deny(rust_2018_idioms)]
+//! Data serves both as the configuration data for mdPage
+//! as well as the actual template data for generating content.
 
 use std::env;
 use std::error::Error;
@@ -18,27 +19,45 @@ use crate::content::{
 };
 use crate::utils::{build_title_for_dir, is_ext};
 
+/// Data serves both as the configuration data for mdPage
+/// as well as the actual template data for generating content.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Data {
+    /// Whether to do full page or not.
     pub full_page: Option<bool>,
+    /// Title used in header and title of the document.
     pub title: Option<String>,
+    /// Subtitle used in header.
     pub subtitle: Option<String>,
+    /// Author used in metadata.
     pub author: Option<String>,
+    /// The favicon link.
     pub icon: Option<String>,
+    /// The main content used for the front page.
     pub main: Option<Content>,
+    /// The content of the document.
     pub contents: Option<Vec<Content>>,
+    /// The custom JavaScript to be added in the `script` tag.
     pub script: Option<String>,
+    /// The custom CSS to be added in the `style` tag.
     pub style: Option<String>,
+    /// The custom style and script links.
     pub links: Option<Vec<Link>>,
+    /// Custom header content.
     pub header: Option<Content>,
+    /// Custom footer content.
     pub footer: Option<Content>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Link {
+    /// Link type, one of "style", "stylesheet" for styles, or "script" for a script link.
     pub link_type: Option<String>,
+    /// The link source.
     pub src: Option<String>,
+    /// Optional integrity for SRI.
     pub integrity: Option<String>,
+    /// Optional crossorigin for SRI.
     pub crossorigin: Option<String>,
 }
 
@@ -242,6 +261,7 @@ fn config_file(root: &Path) -> Option<PathBuf> {
     }
 }
 
+/// Build the content data from a root directory path and optional initial value.
 pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn Error>> {
     let mut r = root;
     let current_dir = env::current_dir()?;

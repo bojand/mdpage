@@ -31,10 +31,11 @@
 - [x] Add crosscompile
 - [x] Add changelog
 - [x] Add output option 
-- [ ] Add Rust docs
-- [ ] Document
+- [x] Add Rust docs
+- [x] Document
 - [ ] Add workflow to publish crate
 - [ ] Clean up `cargo.toml`
+- [ ] Change LinkType to an enum.
 - [ ] In docs workflow install CLI instead of building
 - [ ] Clean up code
 - [ ] Fix up errors

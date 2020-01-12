@@ -5,6 +5,7 @@ use std::io::prelude::*;
 use std::io::BufReader;
 use std::path::Path;
 
+/// Generate the title from markdown content.
 pub fn title_string<R>(mut rdr: R) -> Option<String>
 where
     R: BufRead,
@@ -24,6 +25,7 @@ where
     None
 }
 
+/// Generate the title from directory.
 pub fn build_title_for_dir(
     root: &Path,
     mut paths: fs::ReadDir,
@@ -57,6 +59,7 @@ pub fn build_title_for_dir(
     Ok(res)
 }
 
+/// Generate the title from file path.
 pub fn get_title_from_file(
     path: &Path,
     use_file_name: bool,
@@ -81,6 +84,7 @@ pub fn get_title_from_file(
     Ok(res)
 }
 
+/// Generate whether a dir entry is an index file, namely "index.md" or "readme.md".
 pub fn is_index_file(entry: &std::fs::DirEntry) -> bool {
     if let Ok(file_type) = entry.file_type() {
         if file_type.is_file() {
@@ -97,6 +101,7 @@ pub fn is_index_file(entry: &std::fs::DirEntry) -> bool {
     false
 }
 
+/// Determines if a path is of given extension.
 pub fn is_ext(path: &Path, ext: &str) -> bool {
     path.extension()
         .unwrap_or_default()
