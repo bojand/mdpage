@@ -1,10 +1,11 @@
 [package]
 name = "mdpage"
-version = "0.1.0"
+version = "0.1.0-pre.0"
 authors = ["Bojan D. <dbojan@gmail.com>"]
 edition = "2018"
-documentation = "http://bojand.github.io/mdpage/index.html"
-exclude = ["/docs/*"]
+homepage = "http://bojand.github.io/mdpage"
+documentation = "http://bojand.github.io/mdpage"
+exclude = ["docs/**/*"]
 keywords = ["documentation", "markdown"]
 license = "APL-2.0"
 readme = "README.md"
@@ -24,6 +25,11 @@ derivative = "1.0.3"
 log = "0.4.8"
 env_logger = "0.7.1"
 
+[profile.release]
+codegen-units = 1
+lto = true
+
 [[bin]]
 doc = false
 name = "mdpage"
+path = "src/main.rs"
