@@ -49,16 +49,43 @@ pub struct Data {
     pub footer: Option<Content>,
 }
 
+/// Link represents a link we can insert into the head of the generated document.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Link {
-    /// Link type, one of "style", "stylesheet" for styles, or "script" for a script link.
-    pub link_type: Option<String>,
+    /// Link type.
+    pub link_type: Option<LinkType>,
     /// The link source.
     pub src: Option<String>,
     /// Optional integrity for SRI.
     pub integrity: Option<String>,
     /// Optional crossorigin for SRI.
     pub crossorigin: Option<String>,
+}
+
+/// Link Type enum.
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum LinkType {
+    Style,
+    Script,
+}
+
+impl LinkType {
+    pub fn from_str(s: &str) -> Option<LinkType> {
+        match s {
+            "style" => Some(LinkType::Style),
+            "stylesheet" => Some(LinkType::Style),
+            "script" => Some(LinkType::Script),
+            _ => None,
+        }
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            LinkType::Style => "stylesheet",
+            LinkType::Script => "script",
+        }
+    }
 }
 
 impl Default for Data {

@@ -34,8 +34,8 @@
 - [x] Add Rust docs
 - [x] Document
 - [ ] Add workflow to publish crate
-- [ ] Clean up `cargo.toml`
-- [ ] Change LinkType to an enum.
+- [x] Clean up `cargo.toml`
+- [x] Change LinkType to an enum.
 - [ ] In docs workflow install CLI instead of building
 - [ ] Clean up code
 - [ ] Fix up errors
