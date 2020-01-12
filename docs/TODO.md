@@ -27,7 +27,8 @@
 - [x] Add support for html paths in `file` property
 - [x] Add test for single file
 - [x] Add dir to content
-- [ ] Add binary and releases
+- [x] Add binary and releases
+- [ ] Add changelog
 - [ ] Add Rust docs
 - [ ] Document
 - [ ] Add workflow to publish crate
