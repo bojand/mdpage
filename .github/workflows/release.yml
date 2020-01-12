@@ -6,24 +6,24 @@ on:
       - v*
 
 jobs:
-  create:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@master
-    - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
-  release:
-    needs: create
+  # create:
+  #   name: Create Release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@master
+  #   - name: Create release
+  #     id: create_release
+  #     uses: actions/create-release@v1
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     with:
+  #       tag_name: ${{ github.ref }}
+  #       release_name: ${{ github.ref }}
+  #       draft: false
+  #       prerelease: false
+  github_build:
+    # needs: create
     name: Deploy Release
     strategy:
       matrix:
@@ -43,29 +43,73 @@ jobs:
             name: mdpage-x86_64-pc-windows-msvc.zip
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@master
-    
-    - name: Install Rust toolchain
-      uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        toolchain: stable
-        override: true
-        target: ${{ matrix.target }}
-    
-    - name: Build target
-      uses: actions-rs/cargo@v1
-      with:
-        command: build
-        args: --release --target ${{ matrix.target }}
+      - name: Checkout code
+        uses: actions/checkout@master
+      
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          target: ${{ matrix.target }}
+      
+      - name: Build target
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --target ${{ matrix.target }}
 
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ jobs.create.steps.create_release.outputs.upload_url }}
-        name: ${{ matrix.name }}
-        path: ${{ matrix.name }}
-        asset_content_type: application/zip
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ matrix.name }}
+
+  github_release:
+    name: Create GitHub Release
+    needs: github_build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # These can be squashed when https://github.com/actions/download-artifact/issues/6 is closed
+      - name: Download releases from github_build
+        uses: actions/download-artifact@v1
+        with:
+          name: mdpage-x86_64-unknown-linux-gnu.tar.gz
+          path: .
+      - name: Download releases from github_build
+        uses: actions/download-artifact@v1
+        with:
+          name: mdpage-x86_64-apple-darwin.tar.gz
+          path: .
+      - name: Download releases from github_build
+        uses: actions/download-artifact@v1
+        with:
+          name: mdpage-x86_64-pc-windows-msvc.zip
+          path: .
+
+      - name: Generate checksums
+        run: for file in mdpage-*; do openssl dgst -sha256 -r "$file" | awk '{print $1}' > "${file}.sha256"; done
+
+      # - name: Generate release notes
+      #   run: |
+      #     # Temporary fix for https://github.com/actions/setup-go/issues/14
+      #     export PATH=$PATH:$(go env GOPATH)/bin
+      #     go get -u github.com/git-chglog/git-chglog/cmd/git-chglog
+      #     git-chglog -c .github/chglog/release.yml $(git describe --tags) > RELEASE.md
+
+      - name: Create GitHub release ${{ matrix.target }}
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            mdpage-x86_64-unknown-linux-gnu.tar.gz
+            mdpage-x86_64-unknown-linux-gnu.tar.gz.sha256
+            mdpage-x86_64-apple-darwin.tar.gz
+            mdpage-x86_64-apple-darwin.tar.gz.sha256
+            mdpage-x86_64-pc-windows-msvc.zip
+            mdpage-x86_64-pc-windows-msvc.zip.sha256
+          # body_path: RELEASE.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
