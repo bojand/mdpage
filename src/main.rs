@@ -22,6 +22,10 @@ struct Args {
     #[structopt(long, takes_value = false)]
     full_page: bool,
 
+    /// The output file
+    #[structopt(short, long)]
+    output: Option<PathBuf>,
+
     /// Path for the directory containing data
     path: PathBuf,
 }
@@ -43,8 +47,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let data = mdpage::build(root, Some(initial))?;
     debug!("{}", serde_json::to_string(&data).expect("failed to json"));
 
-    let mut path = root.to_path_buf();
-    path.push("index.html");
+    let path = match opt.output {
+        Some(o) => o,
+        None => {
+            let mut path = root.to_path_buf();
+            path.push("index.html");
+            path
+        }
+    };
+
     let f = File::create(path)?;
 
     mdpage::write_data(f, &data)

@@ -28,18 +28,19 @@
 - [x] Add test for single file
 - [x] Add dir to content
 - [x] Add binary and releases
-- [ ] Add changelog
+- [x] Add crosscompile
+- [x] Add changelog
+- [x] Add output option 
 - [ ] Add Rust docs
 - [ ] Document
 - [ ] Add workflow to publish crate
 - [ ] Clean up `cargo.toml`
-- [ ] Add crosscompile
 - [ ] In docs workflow install CLI instead of building
 - [ ] Clean up code
-- [ ] Add output option 
-- [ ] Add ignore paths
 - [ ] Fix up errors
   - [x] Add more info using `format!`
+- [ ] Add config option ?
+- [ ] Add ignore paths ?
 - [ ] Add failure and context ? See https://rust-cli.github.io/book/tutorial/errors.html
 - [ ] Add CSS vars for colors ?
 - [ ] Add YAML support for config ?
