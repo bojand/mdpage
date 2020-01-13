@@ -12,7 +12,7 @@ to download the appropriate version for your platform.
 
 ### Install from source
 
-mdPage can also be installed from source
+mdPage can also be installed from source.
 
 #### Pre-requisite
 
