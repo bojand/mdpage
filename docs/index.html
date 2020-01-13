@@ -73,7 +73,7 @@ Visit <a href="https://github.com/bojand/mdpage/releases">the releases page</a>
 to download the appropriate version for your platform.</p>
 <br>
 <h3>Install from source</h3>
-<p>mdPage can also be installed from source</p>
+<p>mdPage can also be installed from source.</p>
 <h4>Pre-requisite</h4>
 <p>mdPage is written in <a href="https://www.rust-lang.org/">Rust</a> and therefore needs
 to be compiled with Cargo. If you haven't already installed Rust, please go
@@ -93,7 +93,7 @@ have installed mdPage!</p>
                 <h2>Usage</h2>
 <p><code>mdpage</code> tool takes a singe argument, the root path directory where all the content is located.</p>
 <pre><code class="language-sh">$ mdpage --help
-mdpage 0.1.0
+mdpage 0.1.1
 Generate simple documentation
 
 USAGE:
@@ -105,8 +105,9 @@ FLAGS:
     -V, --version      Prints version information
 
 OPTIONS:
-        --subtitle &lt;subtitle&gt;    Subtitle
-        --title &lt;title&gt;          Title
+    -o, --output &lt;output&gt;        The output file
+        --subtitle &lt;subtitle&gt;    Subtitle of the document
+        --title &lt;title&gt;          Title of the document
 
 ARGS:
     &lt;path&gt;    Path for the directory containing data
