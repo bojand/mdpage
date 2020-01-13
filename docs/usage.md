@@ -4,7 +4,7 @@
 
 ```sh
 $ mdpage --help
-mdpage 0.1.0
+mdpage 0.1.1
 Generate simple documentation
 
 USAGE:
@@ -16,8 +16,9 @@ FLAGS:
     -V, --version      Prints version information
 
 OPTIONS:
-        --subtitle <subtitle>    Subtitle
-        --title <title>          Title
+    -o, --output <output>        The output file
+        --subtitle <subtitle>    Subtitle of the document
+        --title <title>          Title of the document
 
 ARGS:
     <path>    Path for the directory containing data

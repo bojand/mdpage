@@ -25,7 +25,7 @@ There are multiple ways to install mdPage.
 
 1. **Binaries**
 
-   Binaries are available for download [here](releases). Make sure to put the
+   Binaries are available for download [here](ttps://github.com/bojand/mdpage/releases). Make sure to put the
    path to the binary into your `PATH`.
 
 2. **From Crates.io**
@@ -46,7 +46,7 @@ There are multiple ways to install mdPage.
 
 ```sh
 $ mdpage --help
-mdpage 0.1.0
+mdpage 0.1.1
 Generate simple documentation
 
 USAGE:
@@ -58,8 +58,9 @@ FLAGS:
     -V, --version      Prints version information
 
 OPTIONS:
-        --subtitle <subtitle>    Subtitle
-        --title <title>          Title
+    -o, --output <output>        The output file
+        --subtitle <subtitle>    Subtitle of the document
+        --title <title>          Title of the document
 
 ARGS:
     <path>    Path for the directory containing data
