@@ -38,6 +38,3 @@ file = "config.md"
 
 [[contents]]
 file = "examples.md"
-
-[[contents]]
-file = "TODO.md"

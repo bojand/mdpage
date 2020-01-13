@@ -19,11 +19,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v1
     
-    - name: Build mdpage CLI
-      run: cargo build
+    - name: Install mdpage
+      run: cargo install mdpage
     
     - name: Build
       shell: bash
