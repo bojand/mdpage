@@ -25,7 +25,7 @@ There are multiple ways to install mdPage.
 
 1. **Binaries**
 
-   Binaries are available for download [here](ttps://github.com/bojand/mdpage/releases). Make sure to put the
+   Binaries are available for download [here](https://github.com/bojand/mdpage/releases). Make sure to put the
    path to the binary into your `PATH`.
 
 2. **From Crates.io**
