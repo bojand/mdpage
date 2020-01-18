@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Add cargo to path
+      run: echo "::add-path::/home/runner/.cargo/bin/"
     
     - name: Install mdpage
       run: cargo install mdpage
