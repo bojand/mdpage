@@ -16,6 +16,9 @@ on:
 
 jobs:
   build:
+    env:
+        RUST_LOG: debug
+        
     runs-on: ubuntu-latest
 
     steps:
