@@ -51,7 +51,7 @@ mdPage expects **all** contents to be in the immediate directory as root of the 
 
 Take a look at the [sections example](/examples/sections) for an idea of how that works and what the result looks like.
 
-We can customize some things via command line options such as title, subtitle, and whether to generate a single full page document (no "JavaScript" pagination).
+We can customize some things via command line options such as title, subtitle, and whether to generate a single full page document (no JavaScript "pagination").
 
 ```sh
 $ mdpage ./docs/examples/full_page --full-page --title "Full Page" --subtitle "Full page example"
