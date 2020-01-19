@@ -307,7 +307,8 @@ pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn E
             .canonicalize()
             .map_err(|err| {
                 format!(
-                    "could not join path: {}. Error: {}",
+                    "could not join current dir {} with path: {}. {}",
+                    current_dir.display(),
                     root.display(),
                     err.to_string()
                 )

@@ -58,7 +58,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let f = File::create(&path).map_err(|err| {
         format!(
-            "could not create path: {}. Error: {}",
+            "could not create path: {}. {}",
             path.display(),
             err.to_string()
         )

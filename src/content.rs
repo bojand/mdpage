@@ -118,7 +118,7 @@ impl Content {
                     .canonicalize()
                     .map_err(|err| {
                         format!(
-                            "could not resolve path. root: {} path: {}. Error: {}",
+                            "could not resolve path. root: {} path: {}. {}",
                             root.display(),
                             pathbuf.display(),
                             err.to_string()
@@ -154,7 +154,7 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
                 .canonicalize()
                 .map_err(|err| {
                     format!(
-                        "could not resolve path. root: {} path: {}. Error: {}",
+                        "could not resolve path. root: {} path: {}. {}",
                         root.display(),
                         pathbuf.display(),
                         err.to_string()
