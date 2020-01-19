@@ -16,8 +16,8 @@ on:
 
 jobs:
   build:
-    env:
-        RUST_LOG: info
+#     env:
+#         RUST_LOG: info
         
     runs-on: ubuntu-latest
 
