@@ -20,26 +20,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # https://github.com/bojand/mdpage/releases/latest/download/mdpage-x86_64-unknown-linux-gnu.tar.gz
-      # cache
     - name: Install mdpage
       run: |
-        curl -L -s https://github.com/bojand/mdpage/releases/latest/download/mdpage-x86_64-unknown-linux-gnu.tar.gz -o mdpage.tar.gz
-        tar -xf mdpage.tar.gz
+        mkdir -p ~/bin
+        curl -L -s https://github.com/bojand/mdpage/releases/latest/download/mdpage-x86_64-unknown-linux-gnu.tar.gz -o ~/bin/mdpage.tar.gz
+        tar -xf ~/bin/mdpage.tar.gz
 
     - name: Checkout
       uses: actions/checkout@v2
     
     - name: Build
       run: |
-        mdpage ./docs/examples/basic
-        mdpage ./docs/examples/sections
-        mdpage ./docs/examples/full_page --full-page --title "Full Page" --subtitle "Full page example"
-        mdpage ./docs/examples/config
-        mdpage ./docs/examples/single_index --title "Single page" --subtitle "Single main page"
-        mdpage ./docs/examples/single_page --title "Single page" --subtitle "Single content page"
-        mdpage ./docs/examples/config_dir
-        mdpage ./docs
+        ~/bin/mdpage ./docs/examples/basic
+        ~/bin/mdpage ./docs/examples/sections
+        ~/bin/mdpage ./docs/examples/full_page --full-page --title "Full Page" --subtitle "Full page example"
+        ~/bin/mdpage ./docs/examples/config
+        ~/bin/mdpage ./docs/examples/single_index --title "Single page" --subtitle "Single main page"
+        ~/bin/mdpage ./docs/examples/single_page --title "Single page" --subtitle "Single content page"
+        ~/bin/mdpage ./docs/examples/config_dir
+        ~/bin/mdpage ./docs
     
     - name: Commit to repository
       env:
