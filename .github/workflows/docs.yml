@@ -20,8 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # https://github.com/bojand/mdpage/releases/latest/download/mdpage-x86_64-unknown-linux-gnu.tar.gz
+      # cache
     - name: Install mdpage
-      run: cargo install mdpage
+      run: |
+        curl -L -s https://github.com/bojand/mdpage/releases/latest/download/mdpage-x86_64-unknown-linux-gnu.tar.gz -o mdpage.tar.gz
+        tar -xf mdpage.tar.gz
 
     - name: Checkout
       uses: actions/checkout@v2
