@@ -22,23 +22,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Add cargo to path
-      run: echo "::add-path::/home/runner/.cargo/bin/"
-    
     - name: Install mdpage
       run: cargo install mdpage
     
     - name: Build
       working-directory: .
       run: |
-        mdpage ./docs/examples/basic
-        mdpage ./docs/examples/sections
-        mdpage ./docs/examples/full_page --full-page --title "Full Page" --subtitle "Full page example"
-        mdpage ./docs/examples/config
-        mdpage ./docs/examples/single_index --title "Single page" --subtitle "Single main page"
-        mdpage ./docs/examples/single_page --title "Single page" --subtitle "Single content page"
-        mdpage ./docs/examples/config_dir
-        mdpage ./docs
+        pwd
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/basic
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/sections
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/full_page --full-page --title "Full Page" --subtitle "Full page example"
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/config
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/single_index --title "Single page" --subtitle "Single main page"
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/single_page --title "Single page" --subtitle "Single content page"
+        mdpage ${GITHUB_WORKSPACE}/docs/examples/config_dir
+        mdpage ${GITHUB_WORKSPACE}/docs
     
     - name: Commit to repository
       env:
