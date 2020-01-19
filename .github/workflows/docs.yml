@@ -24,7 +24,7 @@ jobs:
       run: |
         mkdir -p ~/bin
         curl -L -s https://github.com/bojand/mdpage/releases/latest/download/mdpage-x86_64-unknown-linux-gnu.tar.gz -o ~/bin/mdpage.tar.gz
-        tar -xf ~/bin/mdpage.tar.gz
+        tar -xf ~/bin/mdpage.tar.gz -C ~/bin
 
     - name: Checkout
       uses: actions/checkout@v2
