@@ -72,7 +72,13 @@ pub fn get_title_from_file(
         }
     }
 
-    let file = File::open(path)?;
+    let file = File::open(path).map_err(|err| {
+        format!(
+            "Error opening file: {}. {}",
+            path.display(),
+            err.to_string()
+        )
+    })?;
 
     let buffer = BufReader::new(file);
 

@@ -56,7 +56,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
-    let f = File::create(path)?;
+    let f = File::create(&path).map_err(|err| {
+        format!(
+            "could not create path: {}. Error: {}",
+            path.display(),
+            err.to_string()
+        )
+    })?;
 
     mdpage::write_data(f, &data)
 }

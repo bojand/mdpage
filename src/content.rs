@@ -113,13 +113,18 @@ impl Content {
             let mut pathbuf = self.file.clone().unwrap();
 
             if root.has_root() && pathbuf.is_relative() {
-                pathbuf = root.join(&pathbuf).canonicalize().unwrap_or_else(|_| {
-                    panic!(
-                        "could not resolve path. root: {} path: {}",
-                        root.display(),
-                        pathbuf.display()
-                    )
-                });
+                pathbuf = root
+                    .join(&pathbuf)
+                    .canonicalize()
+                    .map_err(|err| {
+                        format!(
+                            "could not resolve path. root: {} path: {}. Error: {}",
+                            root.display(),
+                            pathbuf.display(),
+                            err.to_string()
+                        )
+                    })
+                    .unwrap();
             }
 
             if is_ext(&pathbuf, "md") {
@@ -144,13 +149,18 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
         let mut pathbuf = c.file.clone().unwrap();
 
         if root.has_root() && pathbuf.is_relative() {
-            pathbuf = root.join(&pathbuf).canonicalize().unwrap_or_else(|_| {
-                panic!(
-                    "could not resolve path. root: {} path: {}",
-                    root.display(),
-                    pathbuf.display()
-                )
-            });
+            pathbuf = root
+                .join(&pathbuf)
+                .canonicalize()
+                .map_err(|err| {
+                    format!(
+                        "could not resolve path. root: {} path: {}. Error: {}",
+                        root.display(),
+                        pathbuf.display(),
+                        err.to_string()
+                    )
+                })
+                .unwrap();
         }
 
         let path = pathbuf.as_path();
@@ -170,8 +180,21 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
             }
 
             let mut file_contents = String::new();
-            let mut file = File::open(path)?;
-            file.read_to_string(&mut file_contents)?;
+            let mut file = File::open(path).map_err(|err| {
+                format!(
+                    "Error reading file: {}. {}",
+                    path.display(),
+                    err.to_string()
+                )
+            })?;
+
+            file.read_to_string(&mut file_contents).map_err(|err| {
+                format!(
+                    "Error reading file: {}. {}",
+                    path.display(),
+                    err.to_string()
+                )
+            })?;
             let trimmed = file_contents.trim();
 
             if !trimmed.is_empty() {
@@ -206,7 +229,13 @@ pub fn fill_content(c: &mut Content, root: &Path) -> Result<(), Box<dyn Error>> 
 
 /// Generate content representations from directory contents.
 pub fn init_dir_sections(root: &Path) -> Result<std::vec::Vec<Content>, Box<dyn Error>> {
-    let paths = fs::read_dir(root)?;
+    let paths = fs::read_dir(root).map_err(|err| {
+        format!(
+            "Error opening file: {}. {}",
+            root.display(),
+            err.to_string()
+        )
+    })?;
 
     let mut dirs = paths
         .filter_map(|p| {

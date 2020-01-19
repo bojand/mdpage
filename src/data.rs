@@ -118,7 +118,13 @@ impl Data {
 
     fn init(&mut self, root: &Path) -> Result<(), Box<dyn Error>> {
         if self.title.is_none() {
-            self.title = Some(build_title_for_dir(root, fs::read_dir(root)?, true)?);
+            self.title = Some(build_title_for_dir(
+                root,
+                fs::read_dir(root).map_err(|err| {
+                    format!("Error reading dir: {}. {}", root.display(), err.to_string())
+                })?,
+                true,
+            )?);
         }
 
         if self.main.is_some() {
@@ -137,7 +143,8 @@ impl Data {
         let mut header = None;
         let mut footer = None;
 
-        let paths = fs::read_dir(root)?;
+        let paths = fs::read_dir(root)
+            .map_err(|err| format!("Error reading dir: {}. {}", root.display(), err.to_string()))?;
 
         let mut res = paths
             .filter_map(|p| {
@@ -294,7 +301,17 @@ pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn E
     let current_dir = env::current_dir()?;
     let abs;
     if root.is_relative() {
-        abs = current_dir.as_path().join(root).canonicalize()?;
+        abs = current_dir
+            .as_path()
+            .join(root)
+            .canonicalize()
+            .map_err(|err| {
+                format!(
+                    "could not join path: {}. Error: {}",
+                    root.display(),
+                    err.to_string()
+                )
+            })?;
         r = abs.as_path();
     }
 
@@ -303,14 +320,38 @@ pub fn build(root: &Path, initial_value: Option<Data>) -> Result<Data, Box<dyn E
 
     if let Some(file_path) = path {
         info!("reading config: {}", file_path.display());
-        let mut file = File::open(file_path.as_path())?;
+        let mut file = File::open(file_path.as_path()).map_err(|err| {
+            format!(
+                "Error reading file: {}. {}",
+                file_path.display(),
+                err.to_string()
+            )
+        })?;
         if is_ext(&file_path, "json") {
             let reader = BufReader::new(file);
-            data = serde_json::from_reader(reader)?;
+            data = serde_json::from_reader(reader).map_err(|err| {
+                format!(
+                    "Error reading json: {}. {}",
+                    file_path.display(),
+                    err.to_string()
+                )
+            })?;
         } else if is_ext(&file_path, "toml") {
             let mut content = String::new();
-            file.read_to_string(&mut content)?;
-            data = toml::from_str(&content)?;
+            file.read_to_string(&mut content).map_err(|err| {
+                format!(
+                    "Error reading file: {}. {}",
+                    file_path.display(),
+                    err.to_string()
+                )
+            })?;
+            data = toml::from_str(&content).map_err(|err| {
+                format!(
+                    "Error reading toml: {}. {}",
+                    file_path.display(),
+                    err.to_string()
+                )
+            })?;
         }
     }
 
